@@ -66,7 +66,7 @@
   // Co-authors: Kate and Lucas
   function unsafeExtension() {
     pageURL = window.location.href;
-    hostname = pageURl.hostname;
+    hostname = pageURL.hostname;
     tld = hostname.substring(hostname.lastIndexOf("."));
     unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
     if (unsafeDomains.includes(tld)) {

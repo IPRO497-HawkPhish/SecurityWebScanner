@@ -74,6 +74,33 @@
       extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
     }
   }
+
+  function showSecurityPrompt() {
+    let prompt = document.createElement("dialog");
+    let report = document.createElement("p");
+
+    // Security report
+    report.innerHTML = "This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are:\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.";
+    prompt.appendChild(report);
+
+    // User input
+    let cancel = document.createElement("button");
+    cancel.innerHTML = "Cancel";
+    cancel.onclick = function() {
+      window.history.back();
+    };
+    prompt.appendChild(cancel);
+
+    let ok = document.createElement("button");
+    ok.innerHTML = "OK";
+    ok.onclick = function() {
+      prompt.close();
+    };
+    prompt.appendChild(ok);
+    
+    document.body.appendChild(prompt);
+    prompt.showModal();
+  }
   
   // Main function, on page load
   window.onload = function() {
@@ -104,14 +131,11 @@
       };
       console.log(makeJSON(dataArray));
       // Show user the rating, security report, and prompt them to go back
-      if(window.confirm("This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are: (SCROLL DOWN IF NEEDED)\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.") == false){
-        history.back();
-      }
+      showSecurityPrompt();
     }
     /* else {
       window.alert("This page is secure; its HawkPhish Security Rating is " + rating + " stars.");
     } */
   };
-  
 }
   

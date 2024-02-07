@@ -77,26 +77,36 @@
 
   function showSecurityPrompt() {
     let prompt = document.createElement("dialog");
-    let report = document.createElement("p");
+    prompt.setAttribute('id', 'security-prompt');
 
+    // Header
+    let header = document.createElement("h1");
+    header.innerHTML = "HawkPhish Security Warning";
+    prompt.appendChild(header);
+    
     // Security report
+    let report = document.createElement("p");
     report.innerHTML = "This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are:\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.";
     prompt.appendChild(report);
 
     // User input
+    let inputs = document.createElement("section");
+    inputs.classList.add("inputs");
+    prompt.appendChild(inputs);
     let cancel = document.createElement("button");
+    cancel.classList.add("suggested-action");
     cancel.innerHTML = "Cancel";
     cancel.onclick = function() {
       window.history.back();
     };
-    prompt.appendChild(cancel);
+    inputs.appendChild(cancel);
 
     let ok = document.createElement("button");
     ok.innerHTML = "OK";
     ok.onclick = function() {
       prompt.close();
     };
-    prompt.appendChild(ok);
+    inputs.appendChild(ok);
     
     document.body.appendChild(prompt);
     prompt.showModal();

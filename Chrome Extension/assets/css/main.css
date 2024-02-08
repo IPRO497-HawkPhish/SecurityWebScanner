@@ -1,0 +1,55 @@
+/* Ignore styles from the website */
+#security-prompt * {
+    all: initial;
+    font-family: sans-serif;
+}
+
+#security-prompt::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#security-prompt {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 28rem; /* 448px */
+    padding: 1.5rem;
+    text-align: left;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#security-prompt h1 {
+    display: block;
+    font-size: 1.5rem;
+}
+
+#security-prompt .inputs {
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#security-prompt button {
+    background-color: lightgrey;
+    text-align: center;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    min-width: 4rem;
+    transition: opacity 200ms;
+}
+
+#security-prompt button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+#security-prompt button.suggested-action {
+    background-color: #0078d4; /* Blue to grab user attention */
+    color: white;
+}

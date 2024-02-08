@@ -1,0 +1,19 @@
+html
+{
+    width: 1000px; /* max: 1000px */
+}
+
+body{
+    background-color: rgba(230, 230, 230, 0.749);
+    font-family: Helvetica, sans-serif;
+    color: maroon;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.des {
+    color: rgba(230, 230, 230, 0.749);
+    background-color:maroon;
+    border: solid, gray;
+    border-radius: 5%;
+}   

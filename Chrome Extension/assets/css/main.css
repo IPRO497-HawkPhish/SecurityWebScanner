@@ -8,7 +8,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#security-prompt {
+#security-dialog {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -17,6 +17,9 @@
     padding: 1.5rem;
     text-align: left;
     border-radius: 0.5rem;
+}
+
+#security-prompt {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -25,6 +28,12 @@
 #security-prompt h1 {
     display: block;
     font-size: 1.5rem;
+}
+
+#security-prompt ol,
+#security-prompt ul,
+#security-prompt li {
+    display: block;
 }
 
 #security-prompt .inputs {

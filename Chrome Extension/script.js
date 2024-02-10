@@ -76,8 +76,13 @@
   }
 
   function showSecurityPrompt() {
-    let prompt = document.createElement("dialog");
+    let dialog = document.createElement("dialog");
+    dialog.setAttribute('id', 'security-dialog');
+
+    // Wrapper for the prompt (avoids issues with display: flex)
+    let prompt = document.createElement("section");
     prompt.setAttribute('id', 'security-prompt');
+    dialog.appendChild(prompt);
 
     // Header
     let header = document.createElement("h1");
@@ -104,12 +109,12 @@
     let ok = document.createElement("button");
     ok.innerHTML = "OK";
     ok.onclick = function() {
-      prompt.close();
+      dialog.close();
     };
     inputs.appendChild(ok);
     
-    document.body.appendChild(prompt);
-    prompt.showModal();
+    document.body.appendChild(dialog);
+    dialog.showModal();
   }
   
   // Main function, on page load

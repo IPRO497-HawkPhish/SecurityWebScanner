@@ -1,6 +1,6 @@
 /* Ignore styles from the website */
-#security-prompt * {
-    all: initial;
+#security-dialog * {
+    all: unset;
     font-family: sans-serif;
 }
 
@@ -8,26 +8,57 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* This is the actual dialog element */
 #security-dialog {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    /* Center the dialog */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
     width: 28rem; /* 448px */
     padding: 1.5rem;
     text-align: left;
+    border: none;
     border-radius: 0.5rem;
 }
 
-#security-prompt {
+/* prompt is the wrapper around everything inside
+ report is the message informing the user about the issues */
+#security-prompt,
+#security-report {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+#security-report li.issue {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #f4f4f4;
+}
+
+#security-report span.toggle {
+    float: right;
+    cursor: pointer;
+    color: #0078d4;
+    padding: 0 0.5rem;
+}
+
+#security-report .description {
+    display: block;
+    padding: 0.5rem;
+    color: rgb(41, 41, 41);
+}
+
 #security-prompt h1 {
     display: block;
     font-size: 1.5rem;
+}
+
+#security-prompt h2 {
+    display: block;
+    font-size: 1.15rem;
 }
 
 #security-prompt ol,
@@ -61,4 +92,8 @@
 #security-prompt button.suggested-action {
     background-color: #0078d4; /* Blue to grab user attention */
     color: white;
+}
+
+#security-prompt .hidden {
+    display: none;
 }

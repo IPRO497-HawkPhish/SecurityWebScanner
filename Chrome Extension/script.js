@@ -5,15 +5,11 @@
   var pageURL;
 
   // Security variables (for report)
-  var httpsString = "";
-  var shortString = "";
-  var atString = "";
-  var extensionString = "";
+  let issues = [];
   var httpsUnsafe = false;
   var shortUnsafe = false;
   var atUnsafe = false;
   var extensionUnsafe = false;
-
   var rating = 5; // out of 5 stars
   
   function fetchData() {
@@ -36,7 +32,7 @@
     if(window.location.protocol !== 'https:'){
       rating -= 1.5;
       httpsUnsafe = true;
-      httpsString = "- This URL does not follow HTTPS protocol. HTTPS guarantees a secure connection.\n";
+      issues.push({reason: "This URL does not follow HTTPS protocol.", description: "HTTPS encrypts your connection to the website, making it more secure. If you continue, do not enter any personal information on this page."});
     }
   };
   
@@ -47,7 +43,7 @@
     if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
       rating -= 1;
       shortUnsafe = true;
-      shortString = "- This URL was treated by a link shortener, possibly to hide the true URL.\n";
+      issues.push({reason: "This URL was treated by a link shortener.", description: "Link shorteners can be used to hide the true URL."})
     }
   };
 
@@ -58,7 +54,7 @@
     if (pageURL.includes('@')){
       rating -= 2.5;
       atUnsafe = true;
-      atString = "- This URL contains an @ symbol. It could be trying to redirect you somewhere else.\n";
+      issues.push({reason: "This URL contains an @ symbol.", description: "This could be a phishing attempt."})
     }
   };
 
@@ -71,7 +67,7 @@
     if (unsafeDomains.includes(tld)) {
       rating -= 2;
       extensionUnsafe = true;
-      extensionString = "- Unsafe top-level domain: this page is being hosted in a domain commonly associated with unsafe websites.\n";
+      issues.push({reason: "Unsafe top-level domain.", description: "This URL is hosted in a domain commonly associated with unsafe websites."})
     }
   }
 
@@ -90,8 +86,54 @@
     prompt.appendChild(header);
     
     // Security report
-    let report = document.createElement("p");
-    report.innerHTML = "This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars.\n\nThis page's vulnerabilities are:\n" + atString + extensionString + httpsString + shortString + "\nWe recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.";
+    let report = document.createElement("section");
+    report.setAttribute('id', 'security-report');
+    let reportHeader = document.createElement("p");
+    reportHeader.innerHTML = "This page could be unsafe; its HawkPhish Security Rating is " + rating + " stars. This page's vulnerabilities are:";
+    report.appendChild(reportHeader);
+
+    // Vulnerabilities
+    let issueList = document.createElement("ol");
+    for (let issue of issues) {
+      let li = document.createElement("li");
+      let issueTitle = document.createElement("h2");
+      let description = document.createElement("p");
+      let toggle = document.createElement("span");
+
+      li.classList.add("issue");
+      
+      issueTitle.classList.add("issue-title");
+      issueTitle.innerHTML = issue.reason;
+
+      // Used to show the description
+      toggle.classList.add("toggle");
+      toggle.innerHTML = "?";
+      toggle.setAttribute('title', "Show description");
+      
+      description.classList.add("description");
+      description.innerHTML = issue.description;
+      description.classList.add("hidden");
+      
+      li.appendChild(issueTitle);
+      issueTitle.appendChild(toggle);
+      li.appendChild(description);
+      issueList.appendChild(li);
+
+      // Toggle the description
+      toggle.addEventListener('click', () => {
+        console.log("CLICKED");
+        if (description.classList.contains("hidden")) {
+          description.classList.remove("hidden");
+        } else {
+          description.classList.add("hidden");
+        }
+      });
+    }
+    report.appendChild(issueList);
+
+    let reportFooter = document.createElement("p");
+    reportFooter.innerHTML += "We recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.";
+    report.appendChild(reportFooter);
     prompt.appendChild(report);
 
     // User input

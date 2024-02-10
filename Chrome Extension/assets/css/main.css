@@ -1,10 +1,16 @@
 /* Ignore styles from the website */
-#security-dialog * {
-    all: unset;
-    font-family: sans-serif;
+html {
+    font-size: 16px !important;
+    line-height: 1.2;
 }
 
-#security-prompt::backdrop {
+#security-dialog * {
+    all: initial;
+    font-family: Arial, sans-serif;
+    display: block;
+}
+
+#security-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -12,11 +18,11 @@
 #security-dialog {
     /* Center the dialog */
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    bottom: 0;
+    margin: auto;
     background-color: white;
-    width: 28rem; /* 448px */
+    max-width: 28rem; /* 448px */
     padding: 1.5rem;
     text-align: left;
     border: none;

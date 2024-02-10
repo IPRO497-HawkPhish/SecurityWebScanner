@@ -84,6 +84,20 @@
     let header = document.createElement("h1");
     header.innerHTML = "HawkPhish Security Warning";
     prompt.appendChild(header);
+
+    // Star Rating
+    let starWrapper = document.createElement("div");
+
+    for (i = 5 - rating; i < 5; i++) {
+      var starImg = document.createElement("img");
+      starImg.src = "https://i.pinimg.com/originals/6d/00/9e/6d009e1b243cc054596b94082499e2ce.png";
+      starImg.classList.add("star");
+      starWrapper.appendChild(starImg);
+      if (rating % 1 != 0) {
+        // adding the half star
+      }
+    }
+    prompt.appendChild(starWrapper);
     
     // Security report
     let report = document.createElement("section");

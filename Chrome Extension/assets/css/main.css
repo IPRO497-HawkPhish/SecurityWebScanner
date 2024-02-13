@@ -16,7 +16,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    width: 28rem; /* 448px */
+    width: 28rem;
+    /* 448px */
     padding: 1.5rem;
     text-align: left;
     border: none;
@@ -90,7 +91,8 @@
 }
 
 #security-prompt button.suggested-action {
-    background-color: #0078d4; /* Blue to grab user attention */
+    background-color: #0078d4;
+    /* Blue to grab user attention */
     color: white;
 }
 

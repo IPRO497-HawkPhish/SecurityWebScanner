@@ -11,14 +11,14 @@
   var atUnsafe = false;
   var extensionUnsafe = false;
   var rating = 5; // out of 5 stars
-  
+
   function fetchData() {
     let event = new Date();
     timeAccessed = event.toString();
     pageTitle = document.title;
     pageURL = window.location.href;
   };
-  
+
   // For end-to-end
   function makeJSON(data) {
     return JSON.stringify(data, null, 2);
@@ -29,21 +29,21 @@
   // Lower rating by 1.5 if URL is not https
   // Author: Na'im (and Lucas for rating/report)
   function isNotHttps() {
-    if(window.location.protocol !== 'https:'){
+    if (window.location.protocol !== 'https:') {
       rating -= 1.5;
       httpsUnsafe = true;
-      issues.push({reason: "This URL does not follow HTTPS protocol.", description: "HTTPS encrypts your connection to the website, making it more secure. If you continue, do not enter any personal information on this page."});
+      issues.push({ reason: "This URL does not follow HTTPS protocol.", description: "HTTPS encrypts your connection to the website, making it more secure. If you continue, do not enter any personal information on this page." });
     }
   };
-  
+
   // Lower rating by 1 if URL is treated by a link shortener
   // Author: Kate (?) (and Lucas for rating/report)
   function isShortened() {
     pageURL = window.location.href;
-    if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))){
+    if ((pageURL.includes('bit.ly')) || (pageURL.includes('tinyurl'))) {
       rating -= 1;
       shortUnsafe = true;
-      issues.push({reason: "This URL was treated by a link shortener.", description: "Link shorteners can be used to hide the true URL."})
+      issues.push({ reason: "This URL was treated by a link shortener.", description: "Link shorteners can be used to hide the true URL." })
     }
   };
 
@@ -51,10 +51,10 @@
   // Author: Lucas
   function hasAt() {
     pageURL = window.location.href;
-    if (pageURL.includes('@')){
+    if (pageURL.includes('@')) {
       rating -= 2.5;
       atUnsafe = true;
-      issues.push({reason: "This URL contains an @ symbol.", description: "This could be a phishing attempt."})
+      issues.push({ reason: "This URL contains an @ symbol.", description: "This could be a phishing attempt." })
     }
   };
 
@@ -67,7 +67,7 @@
     if (unsafeDomains.includes(tld)) {
       rating -= 2;
       extensionUnsafe = true;
-      issues.push({reason: "Unsafe top-level domain.", description: "This URL is hosted in a domain commonly associated with unsafe websites."})
+      issues.push({ reason: "Unsafe top-level domain.", description: "This URL is hosted in a domain commonly associated with unsafe websites." })
     }
   }
 
@@ -88,17 +88,23 @@
     // Star Rating
     let starWrapper = document.createElement("div");
 
-    for (i = 5 - rating; i < 5; i++) {
+    if (rating % 1 != 0) {
+      var x = rating - 0.5;
+    }
+    for (i = 5 - x; i < 5; i++) {
       var starImg = document.createElement("img");
-      starImg.src = "https://i.pinimg.com/originals/6d/00/9e/6d009e1b243cc054596b94082499e2ce.png";
+      starImg.src = "https://visualpharm.com/assets/445/Star%20Filled-595b40b65ba036ed117d408e.svg";
       starImg.classList.add("star");
       starWrapper.appendChild(starImg);
-      if (rating % 1 != 0) {
-        // adding the half star
-      }
+    }
+    if (rating % 1 != 0) {
+      var starImg = document.createElement("img");
+      starImg.src = "https://visualpharm.com/assets/247/Star%20Half-595b40b85ba036ed117dab5e.svg";
+      starImg.classList.add("star");
+      starWrapper.appendChild(starImg);
     }
     prompt.appendChild(starWrapper);
-    
+
     // Security report
     let report = document.createElement("section");
     report.setAttribute('id', 'security-report');
@@ -115,7 +121,7 @@
       let toggle = document.createElement("span");
 
       li.classList.add("issue");
-      
+
       issueTitle.classList.add("issue-title");
       issueTitle.innerHTML = issue.reason;
 
@@ -123,11 +129,11 @@
       toggle.classList.add("toggle");
       toggle.innerHTML = "?";
       toggle.setAttribute('title', "Show description");
-      
+
       description.classList.add("description");
       description.innerHTML = issue.description;
       description.classList.add("hidden");
-      
+
       li.appendChild(issueTitle);
       issueTitle.appendChild(toggle);
       li.appendChild(description);
@@ -157,24 +163,24 @@
     let cancel = document.createElement("button");
     cancel.classList.add("suggested-action");
     cancel.innerHTML = "Cancel";
-    cancel.onclick = function() {
+    cancel.onclick = function () {
       window.history.back();
     };
     inputs.appendChild(cancel);
 
     let ok = document.createElement("button");
     ok.innerHTML = "OK";
-    ok.onclick = function() {
+    ok.onclick = function () {
       dialog.close();
     };
     inputs.appendChild(ok);
-    
+
     document.body.appendChild(dialog);
     dialog.showModal();
   }
-  
+
   // Main function, on page load
-  window.onload = function() {
+  window.onload = function () {
     safe = true;
     window.onload = null;
 
@@ -183,11 +189,11 @@
     isShortened();
     hasAt();
     unsafeExtension();
-    
-    if (rating < 0){
+
+    if (rating < 0) {
       rating = 0;
     }
-    if (rating <= 3.5){
+    if (rating <= 3.5) {
       // Get the data for backend
       fetchData();
       const dataArray = {
@@ -209,4 +215,4 @@
     } */
   };
 }
-  
+

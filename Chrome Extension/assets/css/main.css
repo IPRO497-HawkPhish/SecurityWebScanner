@@ -96,7 +96,8 @@ html {
 }
 
 #security-prompt button.suggested-action {
-    background-color: #0078d4; /* Blue to grab user attention */
+    background-color: #0078d4;
+    /* Blue to grab user attention */
     color: white;
 }
 

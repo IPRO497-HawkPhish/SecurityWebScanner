@@ -2,11 +2,13 @@
   "manifest_version": 3,
     "name": "HawkPhish",
     "description": "Web Scanner and Security Summarizer",
-    "version": "1.0",
+    "version": "2.0",
     "permissions": ["activeTab"],
 
     "icons": {
-      "16": "assets/icons/logo-192.png"
+      "16": "popup/logo/phish.png",
+      "48": "popup/logo/phish.png",
+      "128": "popup/logo/phish.png"
     },
 
     "action": {

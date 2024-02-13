@@ -91,6 +91,7 @@
     if (rating % 1 != 0) {
       var x = rating - 0.5;
     }
+
     for (i = 5 - x; i < 5; i++) {
       var starImg = document.createElement("img");
       starImg.src = "https://visualpharm.com/assets/445/Star%20Filled-595b40b65ba036ed117d408e.svg";

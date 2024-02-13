@@ -21,5 +21,10 @@
         "js": ["script.js"],
         "css": ["assets/css/main.css"]
       }
-    ]
+    ],
+
+    "web_accessible_resources": [{ 
+      "resources": ["assets/icons/star-fill.svg", "assets/icons/star-half.svg"],
+      "matches": ["<all_urls>"]
+    }]
 }

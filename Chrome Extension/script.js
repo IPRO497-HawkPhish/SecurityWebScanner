@@ -94,13 +94,13 @@
 
     for (i = 5 - x; i < 5; i++) {
       var starImg = document.createElement("img");
-      starImg.src = "https://visualpharm.com/assets/445/Star%20Filled-595b40b65ba036ed117d408e.svg";
+      starImg.src = chrome.runtime.getURL("/assets/icons/star-fill.svg");
       starImg.classList.add("star");
       starWrapper.appendChild(starImg);
     }
     if (rating % 1 != 0) {
       var starImg = document.createElement("img");
-      starImg.src = "https://visualpharm.com/assets/247/Star%20Half-595b40b85ba036ed117dab5e.svg";
+      starImg.src = chrome.runtime.getURL("/assets/icons/star-half.svg");
       starImg.classList.add("star");
       starWrapper.appendChild(starImg);
     }

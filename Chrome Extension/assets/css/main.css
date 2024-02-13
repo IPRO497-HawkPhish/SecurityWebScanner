@@ -110,4 +110,5 @@ html {
     height: 30px;
     margin-right: 5px;
     display: inline;
+    user-select: none;
 }

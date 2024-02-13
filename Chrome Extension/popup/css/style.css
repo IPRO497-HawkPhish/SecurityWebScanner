@@ -1,19 +1,81 @@
-html
-{
-    width: 1000px; /* max: 1000px */
+body {
+    background-color: #5F4B8BFF; /* A background */
+    font-family: Arial, sans-serif; /* A more neutral font choice */
+    color: #040303; /* Dark grey color for text */
+    margin: 0;
+    padding: 15px; /* Spacing from edges */
 }
 
-body{
-    background-color: rgba(230, 230, 230, 0.749);
-    font-family: Helvetica, sans-serif;
-    color: maroon;
-    font-size: 1em;
-    line-height: 1.5;
+.header {
+    text-align: center; /* Center the header content */
 }
 
-.des {
-    color: rgba(230, 230, 230, 0.749);
-    background-color:maroon;
-    border: solid, gray;
-    border-radius: 5%;
-}   
+.logo {
+    width: 120px; /* Set the width of your logo */
+    height: 120px; /* Maintain aspect ratio */
+    margin-bottom: 5px; /* Space below the logo */
+    border: 2px solid #5F4B8BFF; /* Add a solid border with a color that complements the logo */
+    border-radius: 50%; /* Makes the logo round, remove if the logo isn't circular */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.logo:hover {
+    transform: rotate(5deg) scale(1.1); /* Rotate slightly and scale up on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increase shadow size on hover */
+}
+
+
+h1 {
+    color: #5F4B8BFF; /* A darker shade for the title for better contrast */
+    font-size: 24px;
+    margin-bottom: 10px; /* Space below the title */
+}
+
+.section h2, .popup-section h2 {
+    color: #5F4B8BFF; /* Same color as the title for consistency */
+    font-size: 18px;
+    border-bottom: 1px solid #ccc; /* A subtle separator */
+    padding-bottom: 5px; /* Space above the border */
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+.section p, .popup-section p {
+    background-color: #fff; /* White background for the text */
+    padding: 10px; /* Spacing inside the paragraphs */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    font-size: 14px; /* Slightly smaller font size for body text */
+    line-height: 1.6; /* Increased line height for readability */
+    margin-bottom: 15px; /* Space below paragraphs */
+}
+
+.popup-container {
+    background-color: #E69A8DFF; /* Lighter background to distinguish popup */
+    border-radius: 10px; /* Rounded corners for the popup */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More pronounced shadow for popup */
+    padding: 30px; /* Increased spacing inside the popup */
+    width: 500px; /* Fixed width for square shape */
+    height: 700px; /* Fixed height for square shape */
+    margin: 30px auto; /* Center popup on the page */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto; /* Add scroll for overflow content */
+}
+
+.popup-header {
+    text-align: center; /* Center the popup header content */
+}
+
+.popup-title {
+    color: #333; /* Darker color for popup title for emphasis */
+    margin-bottom: 20px; /* Space below the popup title */
+}
+
+.popup-footer p {
+    font-size: 12px; /* Smaller font size for footer text */
+    text-align: center; /* Center the footer content */
+    color: #666; /* Lighter color for a subtle look */
+    margin-top: 20px; /* Space above the footer */
+}

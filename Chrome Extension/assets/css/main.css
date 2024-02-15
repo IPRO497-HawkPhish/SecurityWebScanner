@@ -32,7 +32,8 @@ html {
 /* prompt is the wrapper around everything inside
  report is the message informing the user about the issues */
 #security-prompt,
-#security-report {
+#security-report,
+#security-prompt .issues-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;

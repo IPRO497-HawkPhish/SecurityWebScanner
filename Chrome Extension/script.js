@@ -11,12 +11,34 @@
   var atUnsafe = false;
   var extensionUnsafe = false;
   var rating = 5; // out of 5 stars
+  let questionableLinks = [];
+  let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
   function fetchData() {
     let event = new Date();
     timeAccessed = event.toString();
     pageTitle = document.title;
     pageURL = window.location.href;
+
+    // Check anchor tags on the page
+    let anchors = document.getElementsByTagName('a');
+    for (let anchor of anchors) {
+      let href = anchor.getAttribute('href');
+      let tld = href.substring(href.lastIndexOf("."));
+
+      if (href.includes('http://')) {
+        questionableLinks.push(href);
+      }
+
+      if (href.includes('@')) {
+        questionableLinks.push(href);
+      }
+
+      if (unsafeDomains.includes(tld)) {
+        questionableLinks.push(href);
+      }
+    }
+    // TODO: Have it reduce the score if there are questionable links
   };
 
   // For end-to-end
@@ -63,12 +85,53 @@
   function unsafeExtension() {
     pageURL = window.location.href;
     tld = pageURL.substring(pageURL.lastIndexOf("."));
-    unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
     if (unsafeDomains.includes(tld)) {
       rating -= 2;
       extensionUnsafe = true;
       issues.push({ reason: "Unsafe top-level domain.", description: "This URL is hosted in a domain commonly associated with unsafe websites." })
     }
+  }
+
+  // Explanation can either be a string or an HTML element
+  function createIssueListItem(reason, explanation) {
+    let li = document.createElement("li");
+    let issueTitle = document.createElement("h2");
+    let description = document.createElement("p");
+    let toggle = document.createElement("span");
+
+    li.classList.add("issue");
+
+    issueTitle.classList.add("issue-title");
+    issueTitle.innerHTML = reason;
+
+    // Used to show the description
+    toggle.classList.add("toggle");
+    toggle.innerHTML = "?";
+    toggle.setAttribute('title', "Show description");
+
+    description.classList.add("description");
+    if (typeof explanation === "string") {
+      description.innerHTML = explanation;
+    } else {
+      description.appendChild(explanation);
+    }
+    description.classList.add("hidden");
+
+    li.appendChild(issueTitle);
+    issueTitle.appendChild(toggle);
+    li.appendChild(description);
+
+    // Toggle the description
+    toggle.addEventListener('click', () => {
+      console.log("CLICKED");
+      if (description.classList.contains("hidden")) {
+        description.classList.remove("hidden");
+      } else {
+        description.classList.add("hidden");
+      }
+    });
+
+    return li;
   }
 
   function showSecurityPrompt() {
@@ -115,40 +178,25 @@
 
     // Vulnerabilities
     let issueList = document.createElement("ol");
+    issueList.classList.add("issues-list");
     for (let issue of issues) {
-      let li = document.createElement("li");
-      let issueTitle = document.createElement("h2");
-      let description = document.createElement("p");
-      let toggle = document.createElement("span");
+      let issueElement = createIssueListItem(issue.reason, issue.description);
 
-      li.classList.add("issue");
+      issueList.appendChild(issueElement);
+    }
 
-      issueTitle.classList.add("issue-title");
-      issueTitle.innerHTML = issue.reason;
-
-      // Used to show the description
-      toggle.classList.add("toggle");
-      toggle.innerHTML = "?";
-      toggle.setAttribute('title', "Show description");
-
-      description.classList.add("description");
-      description.innerHTML = issue.description;
-      description.classList.add("hidden");
-
-      li.appendChild(issueTitle);
-      issueTitle.appendChild(toggle);
-      li.appendChild(description);
-      issueList.appendChild(li);
-
-      // Toggle the description
-      toggle.addEventListener('click', () => {
-        console.log("CLICKED");
-        if (description.classList.contains("hidden")) {
-          description.classList.remove("hidden");
-        } else {
-          description.classList.add("hidden");
-        }
-      });
+    // Extra issue for questionable links
+    if (questionableLinks.length > 0) {
+      let linksList = document.createElement("ul");
+      for (let link of questionableLinks) {
+        let linkElement = document.createElement("li");
+        
+        linkElement.innerHTML = link;
+        linksList.appendChild(linkElement);
+      }
+      let issueElement = createIssueListItem(`${questionableLinks.length} questionable links found.`, linksList);
+      
+      issueList.appendChild(issueElement);
     }
     report.appendChild(issueList);
 

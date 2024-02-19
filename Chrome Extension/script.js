@@ -153,6 +153,8 @@
 
     if (rating % 1 != 0) {
       var x = rating - 0.5;
+    } else {
+      var x = rating;
     }
 
     for (i = 5 - x; i < 5; i++) {
@@ -166,6 +168,14 @@
       starImg.src = chrome.runtime.getURL("/assets/icons/star-half.svg");
       starImg.classList.add("star");
       starWrapper.appendChild(starImg);
+    }
+    if (rating <= 4){
+      for (i = rating + 0.5; i < 5; i++){
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/star-empty.svg");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
     }
     prompt.appendChild(starWrapper);
 

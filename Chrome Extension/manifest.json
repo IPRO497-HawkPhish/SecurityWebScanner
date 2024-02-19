@@ -24,7 +24,7 @@
     ],
 
     "web_accessible_resources": [{ 
-      "resources": ["assets/icons/star-fill.svg", "assets/icons/star-half.svg"],
+      "resources": ["assets/icons/star-fill.svg", "assets/icons/star-half.svg", "assets/icons/star-empty.svg"],
       "matches": ["<all_urls>"]
     }]
 }

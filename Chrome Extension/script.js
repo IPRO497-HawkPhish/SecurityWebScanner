@@ -158,26 +158,59 @@
       var x = rating;
     }
 
-    for (i = 5 - x; i < 5; i++) {
-      var starImg = document.createElement("img");
-      starImg.src = chrome.runtime.getURL("/assets/icons/star-fill.svg");
-      starImg.classList.add("star");
-      starWrapper.appendChild(starImg);
-    }
-    if (rating % 1 != 0) {
-      var starImg = document.createElement("img");
-      starImg.src = chrome.runtime.getURL("/assets/icons/star-half.svg");
-      starImg.classList.add("star");
-      starWrapper.appendChild(starImg);
-    }
-    if (rating <= 4){
+    if (rating < 3){
+      for (i = 5 - x; i < 5; i++) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-rf.png");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
+      if (rating % 1 != 0) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-half-empty-50-r.png");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
+      for (i = rating + 0.5; i < 5; i++){
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-re.png");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
+    } else if(rating <= 4){
+      for (i = 5 - x; i < 5; i++) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/star-fill.svg");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
+      if (rating % 1 != 0) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/star-half.svg");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
       for (i = rating + 0.5; i < 5; i++){
         var starImg = document.createElement("img");
         starImg.src = chrome.runtime.getURL("/assets/icons/star-empty.svg");
         starImg.classList.add("star");
         starWrapper.appendChild(starImg);
       }
+    } else{
+      for (i = 5 - x; i < 5; i++) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-gf.png");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
+      if (rating % 1 != 0) {
+        var starImg = document.createElement("img");
+        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-half-empty-50-g.png");
+        starImg.classList.add("star");
+        starWrapper.appendChild(starImg);
+      }
     }
+
     prompt.appendChild(starWrapper);
 
     // Security report
@@ -253,7 +286,7 @@
     if (rating < 0) {
       rating = 0;
     }
-    if (rating <= 6) {
+    if (rating <= 5) {
       // Get the data for backend
       fetchData();
       const dataArray = {

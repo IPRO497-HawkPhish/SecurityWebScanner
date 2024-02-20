@@ -24,7 +24,7 @@
     ],
 
     "web_accessible_resources": [{ 
-      "resources": ["assets/icons/star-fill.svg", "assets/icons/star-half.svg", "assets/icons/star-empty.svg"],
+      "resources": ["assets/icons/star-fill.svg", "assets/icons/star-half.svg", "assets/icons/star-empty.svg", "assets/icons/icons8-star-50-rf.png", "assets/icons/icons8-star-half-empty-50-r.png", "assets/icons/icons8-star-50-re.png", "assets/icons/icons8-star-50-gf.png", "assets/icons/icons8-star-half-empty-50-g.png"],
       "matches": ["<all_urls>"]
     }]
 }

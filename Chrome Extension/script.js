@@ -24,6 +24,7 @@
     let anchors = document.getElementsByTagName('a');
     for (let anchor of anchors) {
       let href = anchor.getAttribute('href');
+      if (href == null || href == "") continue;
       let tld = href.substring(href.lastIndexOf("."));
 
       if (href.includes('http://')) {
@@ -252,7 +253,7 @@
     if (rating < 0) {
       rating = 0;
     }
-    if (rating <= 3.5) {
+    if (rating <= 6) {
       // Get the data for backend
       fetchData();
       const dataArray = {

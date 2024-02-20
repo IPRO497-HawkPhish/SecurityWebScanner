@@ -8,6 +8,7 @@ html {
     all: initial;
     font-family: Arial, sans-serif;
     display: block;
+    color: black;
 }
 
 #security-dialog::backdrop {

@@ -275,6 +275,10 @@
     dialog.showModal();
   }
 
+  function sendReportToPopup() {
+    chrome.runtime.sendMessage({ rating: rating });
+  }
+
   // Main function, on page load
   window.onload = function () {
     safe = true;
@@ -305,6 +309,7 @@
       console.log(makeJSON(dataArray));
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();
+      sendReportToPopup();
     }
     /* else {
       window.alert("This page is secure; its HawkPhish Security Rating is " + rating + " stars.");

@@ -26,20 +26,23 @@
       let href = anchor.getAttribute('href');
       if (href == null || href == "") continue;
       let tld = href.substring(href.lastIndexOf("."));
-
+      
+      //reduce rating if questionable link is found
       if (href.includes('http://')) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
 
-      if (href.includes('@')) {
+      else if (href.includes('@')) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
 
-      if (unsafeDomains.includes(tld)) {
+      else if (unsafeDomains.includes(tld)) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
     }
-    // TODO: Have it reduce the score if there are questionable links
   };
 
   // For end-to-end

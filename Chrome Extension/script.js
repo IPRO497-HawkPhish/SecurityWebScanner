@@ -276,7 +276,14 @@
   }
 
   function sendReportToPopup() {
-    chrome.runtime.sendMessage({ rating: rating });
+    // Create JSON object for the current website
+    let data = {
+      "rating": rating,
+      "issues": issues,
+      "questionableLinks": questionableLinks
+    };
+
+    chrome.storage.sync.set({ [pageURL]: data });
   }
 
   // Main function, on page load

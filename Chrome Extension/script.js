@@ -283,7 +283,7 @@
       "questionableLinks": questionableLinks
     };
 
-    chrome.storage.sync.set({ [pageURL]: data });
+    chrome.storage.session.set({ [pageURL]: data });
   }
 
   // Main function, on page load

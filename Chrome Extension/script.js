@@ -7,7 +7,7 @@
   // Security variables (for report)
   let issues = [];
   var httpsUnsafe = false;
-  var shortUnsafe = false;
+  var shortUnsafe = false; 
   var atUnsafe = false;
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
@@ -178,11 +178,11 @@
   
   function getStarImage(rating, i) {
       if (i < Math.floor(rating)) {
-          return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.svg" : "/assets/icons/icons8-star-50-gf.png");
+          return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
       } else if (i === Math.floor(rating) && rating % 1 !== 0) {
-          return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.svg" : "/assets/icons/icons8-star-half-empty-50-g.png");
+          return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
       } else {
-          return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.svg";
+          return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
       }
   }
   

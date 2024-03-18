@@ -79,3 +79,9 @@ h1 {
     color: #666; /* Lighter color for a subtle look */
     margin-top: 20px; /* Space above the footer */
 }
+.popup-p1  {
+    font-size: 23px;
+    text-align: center;
+    color: #ff0000;
+    margin-top: 20px
+}

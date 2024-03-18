@@ -283,16 +283,37 @@
       // Get the data for backend
       fetchData();
       const dataArray = {
-        eventTime: timeAccessed,
-        domainTitle: pageTitle,
         domainURL: pageURL,
+        domainTitle: pageTitle,
+        eventTime: timeAccessed,
         domainRating: rating,
         reasonNoHttps: httpsUnsafe,
         reasonShortened: shortUnsafe,
         reasonAtSymbol: atUnsafe,
-        reasonBadExtension: extensionUnsafe
+        reasonBadExtension: extensionUnsafe,
+        clicked_count: 0
       };
-      console.log(makeJSON(dataArray));
+      fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any additional headers if required (e.g., authentication headers)
+        },
+        body: JSON.stringify(dataArray),
+        mode: 'no-cors',
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();  // Assuming the server returns JSON data
+      })
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();
       sendReportToPopup();

@@ -48,7 +48,10 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         let report = data[activeTab];
         var rating = report.rating;
         var issues = report.issues;
+        var ratingRange = report.ratingRange;
         var q_links = report.questionableLinks;
+
+        
 
       var starWrapper = document.getElementById('star_rating');
 

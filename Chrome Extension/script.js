@@ -269,7 +269,8 @@
     let data = {
       "rating": rating,
       "issues": issues,
-      "questionableLinks": questionableLinks
+      "questionableLinks": questionableLinks,
+      "ratingRange": ratingRange
     };
 
     chrome.storage.sync.set({ [pageURL]: data });

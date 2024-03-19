@@ -12,7 +12,7 @@
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
-  var popupRatingRange;
+  var popupRatingRange = 3;
   let questionableLinks = [];
   let countries = [];
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
@@ -270,7 +270,7 @@
       "rating": rating,
       "issues": issues,
       "questionableLinks": questionableLinks,
-      "ratingRange": ratingRange
+      "ratingRange": popupRatingRange
     };
 
     chrome.storage.sync.set({ [pageURL]: data });

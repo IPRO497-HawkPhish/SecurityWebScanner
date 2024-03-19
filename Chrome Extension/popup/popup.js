@@ -48,11 +48,12 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         let report = data[activeTab];
         var rating = report.rating;
         var issues = report.issues;
-        var ratingRange = report.ratingRange;
+        var ratingRange = report.popupRatingRange;
         var q_links = report.questionableLinks;
-
         
-
+      var rangeWrapper = document.getElementById('ratingRange');
+      rangeWrapper.textContent = ratingRange;
+        
       var starWrapper = document.getElementById('star_rating');
 
       function getStarImage(rating, i) {

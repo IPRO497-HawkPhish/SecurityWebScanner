@@ -7,9 +7,10 @@
   // Security variables (for report)
   let issues = [];
   var httpsUnsafe = false;
-  var shortUnsafe = false;
+  var shortUnsafe = false; 
   var atUnsafe = false;
   var extensionUnsafe = false;
+  var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
   let questionableLinks = [];
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
@@ -26,20 +27,23 @@
       let href = anchor.getAttribute('href');
       if (href == null || href == "") continue;
       let tld = href.substring(href.lastIndexOf("."));
-
+      
+      //reduce rating if questionable link is found
       if (href.includes('http://')) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
 
-      if (href.includes('@')) {
+      else if (href.includes('@')) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
 
-      if (unsafeDomains.includes(tld)) {
+      else if (unsafeDomains.includes(tld)) {
         questionableLinks.push(href);
+        rating -= 0.5;
       }
     }
-    // TODO: Have it reduce the score if there are questionable links
   };
 
   // For end-to-end
@@ -90,6 +94,21 @@
       rating -= 2;
       extensionUnsafe = true;
       issues.push({ reason: "Unsafe top-level domain.", description: "This URL is hosted in a domain commonly associated with unsafe websites." })
+    }
+  }
+
+  // Length of the URL if greater than 2048 characters then reduce -1
+
+  function checkLongUrl() {
+    pageURL = window.location.href;
+    const urlLengthThreshold = 2048; // Example threshold, adjust as needed
+    if (pageURL.length > urlLengthThreshold) {
+      rating -= 1.0;
+      longUrlUnsafe = true;
+      issues.push({
+        reason: "Excessively long URL detected.",
+        description: "Long URLs can be indicative of suspicious or malicious intent, such as hiding complex query parameters or redirect chains."
+      });
     }
   }
 
@@ -150,68 +169,30 @@
     prompt.appendChild(header);
 
     // Star Rating
-    let starWrapper = document.createElement("div");
-
-    if (rating % 1 != 0) {
-      var x = rating - 0.5;
-    } else {
-      var x = rating;
-    }
-
-    if (rating < 3){
-      for (i = 5 - x; i < 5; i++) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-rf.png");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
+    function createStar(src) {
+      const starImg = document.createElement("img");
+      starImg.src = chrome.runtime.getURL(src);
+      starImg.classList.add("star");
+      return starImg;
+  }
+  
+  function getStarImage(rating, i) {
+      if (i < Math.floor(rating)) {
+          return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
+      } else if (i === Math.floor(rating) && rating % 1 !== 0) {
+          return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
+      } else {
+          return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
       }
-      if (rating % 1 != 0) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-half-empty-50-r.png");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-      for (i = rating + 0.5; i < 5; i++){
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-re.png");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-    } else if(rating <= 4){
-      for (i = 5 - x; i < 5; i++) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/star-fill.svg");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-      if (rating % 1 != 0) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/star-half.svg");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-      for (i = rating + 0.5; i < 5; i++){
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/star-empty.svg");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-    } else{
-      for (i = 5 - x; i < 5; i++) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-50-gf.png");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-      if (rating % 1 != 0) {
-        var starImg = document.createElement("img");
-        starImg.src = chrome.runtime.getURL("/assets/icons/icons8-star-half-empty-50-g.png");
-        starImg.classList.add("star");
-        starWrapper.appendChild(starImg);
-      }
-    }
-
-    prompt.appendChild(starWrapper);
+  }
+  
+  let starWrapper = document.createElement("div");
+  
+  for (let i = 0; i < 5; i++) {
+      starWrapper.appendChild(createStar(getStarImage(rating, i)));
+  }
+  
+  prompt.appendChild(starWrapper);
 
     // Security report
     let report = document.createElement("section");
@@ -272,6 +253,17 @@
     dialog.showModal();
   }
 
+  function sendReportToPopup() {
+    // Create JSON object for the current website
+    let data = {
+      "rating": rating,
+      "issues": issues,
+      "questionableLinks": questionableLinks
+    };
+
+    chrome.storage.sync.set({ [pageURL]: data });
+  }
+
   // Main function, on page load
   window.onload = function () {
     safe = true;
@@ -282,6 +274,7 @@
     isShortened();
     hasAt();
     unsafeExtension();
+    checkLongUrl();
 
     if (rating < 0) {
       rating = 0;
@@ -290,18 +283,40 @@
       // Get the data for backend
       fetchData();
       const dataArray = {
-        eventTime: timeAccessed,
-        domainTitle: pageTitle,
         domainURL: pageURL,
+        domainTitle: pageTitle,
+        eventTime: timeAccessed,
         domainRating: rating,
         reasonNoHttps: httpsUnsafe,
         reasonShortened: shortUnsafe,
         reasonAtSymbol: atUnsafe,
-        reasonBadExtension: extensionUnsafe
+        reasonBadExtension: extensionUnsafe,
+        clicked_count: 0
       };
-      console.log(makeJSON(dataArray));
+      fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add any additional headers if required (e.g., authentication headers)
+        },
+        body: JSON.stringify(dataArray),
+        mode: 'no-cors',
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();  // Assuming the server returns JSON data
+      })
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();
+      sendReportToPopup();
     }
     /* else {
       window.alert("This page is secure; its HawkPhish Security Rating is " + rating + " stars.");

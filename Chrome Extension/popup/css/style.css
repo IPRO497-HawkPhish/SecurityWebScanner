@@ -96,7 +96,7 @@ h1 {
     text-align: center;
     color: #ff0000;
     margin-top: 20px
-
+}
 /* Star Rating */
 .star-rating {
     text-align: center; /* Center-align the star rating */
@@ -111,4 +111,24 @@ h1 {
     color: #00c851; /* Green color indicating safety */
     font-size: 24px; /* Font size of the message */
     margin-top: 10px; /* Space above the message */
+}
+
+.questionable-links {
+    text-align: center; /* Center-align the text */
+    color: #f4f4f4; /* Use the same light grey text for readability */
+    margin: 24px 1; /* Add some top and bottom margin for spacing */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Ensure font consistency */
+}
+
+.popup-header a {
+    color: #a7a9be; /* Soft purple to match the subheadings */
+    text-decoration: none; /* Remove underline from links */
+    margin: 0 10px; /* Horizontal spacing between links */
+    font-size: 18px; /* Comfortable font size for navigation links */
+    font-weight: bold; /* Make the text slightly bolder */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.popup-header a:hover {
+    color: #cfcfea; /* Lighter shade of purple for hover effect */
 }

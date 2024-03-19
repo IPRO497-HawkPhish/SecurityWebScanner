@@ -15,7 +15,7 @@
     },
 
     "action": {
-      "default_popup": "popup/report.html"
+      "default_popup": "popup/popup.html"
     },
 
     "content_scripts": [

@@ -12,8 +12,19 @@
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
+  var popupRatingRange;
   let questionableLinks = [];
+  let countries = [];
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
+
+  chrome.storage.sync.get(['ratingRange', 'countryURL_Filter'], function(data){
+    if (data.ratingRange != null){
+      popupRatingRange = data.ratingRange;
+    }
+    if (data.countries != null){
+      countries = data.countries;
+    }
+  });
 
   function fetchData() {
     let event = new Date();
@@ -279,7 +290,7 @@
     if (rating < 0) {
       rating = 0;
     }
-    if (rating <= 5) {
+    if (rating <= popupRatingRange) {
       // Get the data for backend
       fetchData();
       const dataArray = {

@@ -91,6 +91,11 @@ h1 {
     border-top: 1px solid #5a5c9a; /* Top border for a structured footer */
     padding-top: 10px; /* Space above the border */
 }
+.popup-p1  {
+    font-size: 23px;
+    text-align: center;
+    color: #ff0000;
+    margin-top: 20px
 
 /* Star Rating */
 .star-rating {

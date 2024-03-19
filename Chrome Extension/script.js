@@ -291,7 +291,7 @@
     if (rating < 0) {
       rating = 0;
     }
-    if (rating <= popupRatingRange) {
+    if (rating <= 5) {
       // Get the data for backend
       fetchData();
       const dataArray = {
@@ -305,6 +305,16 @@
         reasonBadExtension: extensionUnsafe,
         clicked_count: 0
       };
+
+      console.log(typeof pageURL);
+      console.log(typeof pageTitle);
+      console.log(typeof timeAccessed);
+      console.log(typeof rating);
+      console.log(typeof httpsUnsafe);
+      console.log(typeof shortUnsafe);
+      console.log(typeof atUnsafe);
+      console.log(typeof extensionUnsafe);
+      console.log(typeof 0);
       fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
         method: 'POST',
         headers: {

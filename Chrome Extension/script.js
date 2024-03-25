@@ -1,4 +1,24 @@
 {
+  // Listen for messages from settings.js
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.action === 'updateSettings') {
+        var selectedCountries = request.countries;
+        var selectedRating = request.rating;
+
+        // Update countries list
+        countries = selectedCountries;
+
+        // Update popupRatingRange
+        popupRatingRange = selectedRating;
+
+        // Optionally, you can store the updated values in Chrome storage if needed
+        chrome.storage.sync.set({ 
+            countries: selectedCountries, 
+            ratingRange: selectedRating 
+        });
+    }
+  });
+
   // Data variables
   var timeAccessed;
   var pageTitle;
@@ -12,19 +32,12 @@
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
-  var popupRatingRange = 3;
+  popupRatingRange == null ?? (popupRatingRange = 3);
   let questionableLinks = [];
-  let countries = [];
+  countries.length == 0 ?? (countries = []);
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
-  chrome.storage.sync.get(['ratingRange', 'countryURL_Filter'], function(data){
-    if (data.ratingRange != null){
-      popupRatingRange = data.ratingRange;
-    }
-    if (data.countries != null){
-      countries = data.countries;
-    }
-  });
+
 
   function fetchData() {
     let event = new Date();

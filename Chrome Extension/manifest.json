@@ -5,7 +5,8 @@
     "version": "2.0",
     "permissions": [
       "activeTab",
-      "storage"
+      "storage",
+      "tabs"
     ], 
 
     "icons": {
@@ -22,7 +23,7 @@
       {
         "matches": ["<all_urls>"],
         "js": ["script.js"],
-        "css": ["assets/css/main.css"]
+        "css": ["assets/css/main.css", "style.css"]
       }
     ],
 

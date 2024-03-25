@@ -1,26 +1,31 @@
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    let activeTab = tabs[0].url;
-    document.addEventListener('settingsConfirmed', function() {
+    let activeTab = tabs[0];
+
+    // Event listener for confirm button click
+    document.getElementById('confirmSettings').addEventListener('click', function() {
         var ratingInput = document.getElementById('ratingRange');
-    
-        // Load saved settings from storage
-        chrome.storage.sync.get(['ratingRange'], function(data) {
-            var savedRating = data.ratingRange;
-            if (savedRating) {
-                ratingInput.value = savedRating;
-            }
+        var selectedRating = parseInt(ratingInput.value);
+        
+        // Get selected countries
+        var selectedCountries = [];
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        checkboxes.forEach(function(checkbox) {
+            selectedCountries.push(checkbox.value);
         });
-    
-        // Update storage when country selection changes
-        countrySelect.addEventListener('change', function() {
-            var selectedCountry = countrySelect.value;
-            chrome.storage.sync.set({ 'countryFilter': selectedCountry });
+
+        // Send message to script.js with selected countries and rating
+        chrome.tabs.sendMessage(activeTab.id, { 
+            action: 'updateSettings', 
+            countries: selectedCountries, 
+            rating: selectedRating 
         });
-    
-        // Update storage when rating input changes
-        ratingInput.addEventListener('change', function() {
-            var selectedRating = parseInt(ratingInput.value);
-            chrome.storage.sync.set({ 'ratingRange': selectedRating });
-        });
+    });
+
+    // Load saved settings from storage
+    chrome.storage.sync.get(['ratingRange'], function(data) {
+        var savedRating = data.ratingRange;
+        if (savedRating) {
+            ratingInput.value = savedRating;
+        }
     });
 });

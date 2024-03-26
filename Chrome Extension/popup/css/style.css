@@ -132,3 +132,56 @@ h1 {
 .popup-header a:hover {
     color: #cfcfea; /* Lighter shade of purple for hover effect */
 }
+
+
+
+/* Setting popup Content */
+.popup-content {
+    text-align: center; /* Center text within the popup */
+    font-size: 20px; /* Increase font size for content */
+    color: #f4f4f4; /* Light grey text color for readability */
+    margin: 1 auto; /* Auto margins for horizontal centering */
+    padding: 20px; /* Padding inside the popup content area */
+}
+
+/* Enhancements for input and button elements within the popup content */
+.popup-content input,
+.popup-content button {
+    font-size: 16px; /* Larger font size for inputs and buttons */
+    margin: 10px 0; /* Margin for spacing around inputs and buttons */
+    padding: 10px; /* Padding inside inputs and buttons */
+    width: 80%; /* Set a specific width for inputs and buttons */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+/* Apply specific styles to the container holding the checkboxes and related labels */
+.popup-content .checkbox-container {
+    text-align: left; /* Align checkboxes to the left */
+    margin: 0 auto; /* Center the container horizontally */
+    display: inline-block; /* Make the container as wide as its content */
+}
+
+/* Labels for checkboxes */
+.popup-content .checkbox-container label {
+    display: block; /* Make each label occupy its own line */
+    font-size: 16px; /* Font size for checkbox labels */
+    color: #f4f4f4; /* Light grey text color for readability */
+    margin: 5px 0; /* Margin for spacing between checkbox labels */
+}
+
+/* Ensure all popup content is centered and easy to read */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure the popup content takes the full available space */
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Make the popup container fill the height */
+}

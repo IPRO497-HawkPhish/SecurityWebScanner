@@ -1,12 +1,20 @@
 function createFilterElement(filter) {
-    var listItem = document.createElement('li');
-    var label = document.createElement('span');
-    label.innerHTML = filter;
-    listItem.appendChild(label);
+    console.log(filter);
 
-    var editButton = document.createElement('button');
-    editButton.innerHTML = 'Edit';
-    listItem.appendChild(editButton);
+    var listItem = document.createElement('li');
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = filter.enabled;
+    listItem.appendChild(checkbox);
+
+    checkbox.addEventListener('change', () => {
+        filter.enabled = checkbox.checked;
+    });
+
+    var filterLabel = document.createElement('input');
+    filterLabel.type = 'text';
+    filterLabel.value = filter.expression;
+    listItem.appendChild(filterLabel);
 
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'X';
@@ -41,7 +49,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var filterList = document.getElementById('filter-list');
 
         if (filter) {
-            var newFilter = createFilterElement(filter);
+            var newFilter = createFilterElement({expression: filter, enabled: true});
             filterList.appendChild(newFilter);
         }
 
@@ -55,13 +63,12 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var filters = [];
         var filterList = document.getElementById('filter-list');
         filterList.childNodes.forEach((filter) => {
-            var label = filter.querySelector('span');
-            filters.push(label.innerHTML);
+            var filterLabel = filter.querySelector('input[type="text"]');
+            filters.push({expression: filterLabel.value, enabled: true});
         });
 
         // Save filters to storage
         chrome.storage.sync.set({ filters: filters });
-
 
         var ratingInput = document.getElementById('ratingRange');
         var selectedRating = parseInt(ratingInput.value);

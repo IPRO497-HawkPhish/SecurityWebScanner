@@ -1,5 +1,5 @@
 /* Ignore styles from the website */
-html {
+#security-dialog {
     font-size: 16px !important;
     line-height: 1.2;
 }
@@ -23,11 +23,11 @@ html {
     bottom: 0;
     margin: auto;
     background-color: white;
-    max-width: 28rem; /* 448px */
-    padding: 1.5rem;
+    width: 28em; /* 448px */
+    padding: 1.5em;
     text-align: left;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 0.5em;
 }
 
 /* prompt is the wrapper around everything inside
@@ -37,12 +37,12 @@ html {
 #security-prompt .issues-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1em;
 }
 
 #security-report li.issue {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
+    padding: 0.5em;
+    border-radius: 0.5em;
     background-color: #f4f4f4;
 }
 
@@ -50,23 +50,23 @@ html {
     float: right;
     cursor: pointer;
     color: #0078d4;
-    padding: 0 0.5rem;
+    padding: 0 0.5em;
 }
 
 #security-report .description {
     display: block;
-    padding: 0.5rem;
+    padding: 0.5em;
     color: rgb(41, 41, 41);
 }
 
 #security-prompt h1 {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.5em;
 }
 
 #security-prompt h2 {
     display: block;
-    font-size: 1.15rem;
+    font-size: 1.15em;
 }
 
 #security-prompt ol,
@@ -76,7 +76,7 @@ html {
 }
 
 #security-prompt .inputs {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -86,9 +86,9 @@ html {
     background-color: lightgrey;
     text-align: center;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.5em 1em;
     border-radius: 100px;
-    min-width: 4rem;
+    min-width: 4em;
     transition: opacity 200ms;
 }
 

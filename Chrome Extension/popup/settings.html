@@ -14,7 +14,7 @@
     </header>
     
     <section>
-        <h2>Filter Settings</h2>
+        <h2>Filters</h2>
         <section class="create-filter">
             <label for="new-filter">New filter</label>
             <section class="input-with-button">
@@ -28,10 +28,15 @@
         </section>
     </section>
 
-    <label for="ratingRange">Select Rating:</label>
-    <input type="range" id="ratingRange" min="0" max="5">
+    <section>
+        <h2>Ratings</h2>
+        <label for="ratingRange">Minimum rating:</label>
+        <input type="range" id="ratingRange" min="0" max="5">
+    </section>
 
-    <button id="confirmSettings">Confirm</button>
+    <footer>
+        <button id="confirmSettings">Confirm</button>
+    </footer>
 
     <script src="settings.js"></script>
 </body>

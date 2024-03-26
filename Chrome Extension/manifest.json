@@ -23,7 +23,7 @@
       {
         "matches": ["<all_urls>"],
         "js": ["script.js"],
-        "css": ["assets/css/main.css", "style.css"]
+        "css": ["assets/css/main.css"]
       }
     ],
 

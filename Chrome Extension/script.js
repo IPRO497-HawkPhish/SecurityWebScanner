@@ -32,9 +32,9 @@
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
-  popupRatingRange == null ?? (popupRatingRange = 3);
+  //popupRatingRange == null ?? (popupRatingRange = 3);
   let questionableLinks = [];
-  countries.length == 0 ?? (countries = []);
+  //countries.length == 0 ?? (countries = []);
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
 

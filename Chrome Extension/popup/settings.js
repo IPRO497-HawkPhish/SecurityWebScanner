@@ -44,7 +44,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         }
     });
 
-    document.getElementById('add-filter').addEventListener('click', function() {
+    // Add the new filter
+    function addFilter() {
         var filter = document.getElementById('new-filter').value;
         var filterList = document.getElementById('filter-list');
 
@@ -54,6 +55,16 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         }
 
         document.getElementById('new-filter').value = '';
+    }
+
+    document.getElementById('new-filter').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            addFilter();
+        }
+    });
+    
+    document.getElementById('add-filter').addEventListener('click', function() {
+        addFilter();
     });
 
     // Event listener for confirm button click

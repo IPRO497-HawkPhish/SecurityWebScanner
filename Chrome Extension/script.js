@@ -35,7 +35,7 @@
   popupRatingRange == null ?? (popupRatingRange = 3);
   let questionableLinks = [];
   countries.length == 0 ?? (countries = []);
-  let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
+  let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz', '.zip', '.mov', '.icu', '.review'];
 
 
 

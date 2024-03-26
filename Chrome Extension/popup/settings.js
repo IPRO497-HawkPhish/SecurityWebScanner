@@ -18,6 +18,7 @@ function createFilterElement(filter) {
 
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'X';
+    deleteButton.title = 'Remove filter';
     listItem.appendChild(deleteButton);
 
     deleteButton.addEventListener('click', () => {
@@ -62,7 +63,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             addFilter();
         }
     });
-    
+
     document.getElementById('add-filter').addEventListener('click', function() {
         addFilter();
     });
@@ -76,6 +77,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         filterList.childNodes.forEach((filter) => {
             if (filter.classList.contains('to-remove')) return;
             var filterLabel = filter.querySelector('input[type="text"]');
+            if (filterLabel.value == '') return;
             filters.push({expression: filterLabel.value, enabled: true});
         });
 

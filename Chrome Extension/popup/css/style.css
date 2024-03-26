@@ -212,7 +212,9 @@ h1 {
     background: transparent;
 }
 
-#settings #filter-list li.to-remove {
+#settings #filter-list li.to-remove,
+#settings #filter-list li.to-remove input,
+#settings #filter-list li.to-remove button {
     background-color: #48495a;
     color: white;
 }

@@ -211,3 +211,8 @@ h1 {
     border: none;
     background: transparent;
 }
+
+#settings #filter-list li.to-remove {
+    background-color: #48495a;
+    color: white;
+}

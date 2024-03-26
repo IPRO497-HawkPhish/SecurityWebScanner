@@ -21,7 +21,7 @@ function createFilterElement(filter) {
     listItem.appendChild(deleteButton);
 
     deleteButton.addEventListener('click', () => {
-        listItem.remove();
+        listItem.classList.toggle('to-remove');
     });
 
     return listItem;
@@ -63,6 +63,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var filters = [];
         var filterList = document.getElementById('filter-list');
         filterList.childNodes.forEach((filter) => {
+            if (filter.classList.contains('to-remove')) return;
             var filterLabel = filter.querySelector('input[type="text"]');
             filters.push({expression: filterLabel.value, enabled: true});
         });
@@ -86,6 +87,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             countries: selectedCountries, 
             rating: selectedRating 
         });
+
+        location.reload();
     });
 
     // Load saved settings from storage

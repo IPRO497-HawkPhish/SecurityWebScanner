@@ -28,87 +28,72 @@ function createFilterElement(filter) {
     return listItem;
 }
 
-chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    let activeTab = tabs[0];
+// Load saved rating range from storage
+chrome.storage.sync.get(['ratingRange'], function(data) {
+    var savedRating = data.ratingRange;
+    if (savedRating) {
+        ratingInput.value = savedRating;
+    }
+});
 
-    // Load saved filters from storage
-    chrome.storage.sync.get(['filters'], (data) => {
-        var savedFilters = data.filters;
+// Load saved filters from storage
+chrome.storage.sync.get(['filters'], (data) => {
+    var savedFilters = data.filters;
 
-        if (savedFilters) {
-            var filterList = document.getElementById('filter-list');
-
-            savedFilters.forEach((filter) => {
-                var newFilter = createFilterElement(filter);
-                filterList.appendChild(newFilter);
-            });
-        }
-    });
-
-    // Add the new filter
-    function addFilter() {
-        var filter = document.getElementById('new-filter').value;
+    if (savedFilters) {
         var filterList = document.getElementById('filter-list');
 
-        if (filter) {
-            var newFilter = createFilterElement({expression: filter, enabled: true});
+        savedFilters.forEach((filter) => {
+            var newFilter = createFilterElement(filter);
             filterList.appendChild(newFilter);
-        }
+        });
+    }
+});
 
-        document.getElementById('new-filter').value = '';
+// Add new filter
+function addFilter() {
+    var filter = document.getElementById('new-filter').value;
+    var filterList = document.getElementById('filter-list');
+
+    if (filter) {
+        var newFilter = createFilterElement({expression: filter, enabled: true});
+        filterList.appendChild(newFilter);
     }
 
-    document.getElementById('new-filter').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            addFilter();
-        }
-    });
+    document.getElementById('new-filter').value = '';
+}
 
-    document.getElementById('add-filter').addEventListener('click', function() {
+document.getElementById('new-filter').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
         addFilter();
+    }
+});
+
+document.getElementById('add-filter').addEventListener('click', function() {
+    addFilter();
+});
+
+// Event listener for confirm button click
+document.getElementById('confirmSettings').addEventListener('click', function() {
+
+    // Save filter list
+    var filters = [];
+    var filterList = document.getElementById('filter-list');
+    filterList.childNodes.forEach((filter) => {
+        if (filter.classList.contains('to-remove')) return;
+        var filterLabel = filter.querySelector('input[type="text"]');
+        if (filterLabel.value == '') return;
+        filters.push({expression: filterLabel.value, enabled: true});
     });
 
-    // Event listener for confirm button click
-    document.getElementById('confirmSettings').addEventListener('click', function() {
+    // Save filters to storage
+    chrome.storage.sync.set({ filters: filters });
 
-        // Save filter list
-        var filters = [];
-        var filterList = document.getElementById('filter-list');
-        filterList.childNodes.forEach((filter) => {
-            if (filter.classList.contains('to-remove')) return;
-            var filterLabel = filter.querySelector('input[type="text"]');
-            if (filterLabel.value == '') return;
-            filters.push({expression: filterLabel.value, enabled: true});
-        });
+    // Save rating range
+    var ratingInput = document.getElementById('ratingRange');
+    var selectedRating = parseInt(ratingInput.value);
 
-        // Save filters to storage
-        chrome.storage.sync.set({ filters: filters });
+    chrome.storage.sync.set({ ratingRange: selectedRating });
 
-        var ratingInput = document.getElementById('ratingRange');
-        var selectedRating = parseInt(ratingInput.value);
-        
-        // Get selected countries
-        var selectedCountries = [];
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        checkboxes.forEach(function(checkbox) {
-            selectedCountries.push(checkbox.value);
-        });
-
-        // Send message to script.js with selected countries and rating
-        chrome.tabs.sendMessage(activeTab.id, { 
-            action: 'updateSettings', 
-            countries: selectedCountries, 
-            rating: selectedRating 
-        });
-
-        location.reload();
-    });
-
-    // Load saved settings from storage
-    chrome.storage.sync.get(['ratingRange'], function(data) {
-        var savedRating = data.ratingRange;
-        if (savedRating) {
-            ratingInput.value = savedRating;
-        }
-    });
+    location.reload();
 });

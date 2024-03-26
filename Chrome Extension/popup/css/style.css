@@ -185,3 +185,29 @@ h1 {
     align-items: center;
     height: 100%; /* Make the popup container fill the height */
 }
+
+/* Settings page styles */
+#settings .input-with-button {
+    display: flex;
+}
+
+#settings #filter-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+}
+
+#settings #filter-list li {
+    display: flex;
+}
+
+#settings #filter-list li:nth-child(even) {
+    background-color: gainsboro;
+}
+
+#settings #filter-list li input,
+#settings #filter-list li button {
+    border: none;
+    background: transparent;
+}

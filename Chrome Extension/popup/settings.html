@@ -5,7 +5,7 @@
     <title>Extension Settings</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body id="settings">
     <header class="popup-header">
         <img src="logo/phish.png" alt="Logo" class="logo"> 
         <h1 class="popup-title">HawkPhish Settings</h1>
@@ -13,13 +13,19 @@
         <a href="report.html">Ratings</a>
     </header>
     
-    <label for="new-filter">New filter</label>
-    <input type="text" name="new-filter" id="new-filter">
-    <button id="add-filter">Add Filter</button>
-
-    <section class="current-filters">
-        <h2>Current Filters</h2>
-        <ul id="filter-list"></ul>
+    <section>
+        <h2>Filter Settings</h2>
+        <section class="create-filter">
+            <label for="new-filter">New filter</label>
+            <section class="input-with-button">
+                <input type="text" name="new-filter" id="new-filter">
+                <button id="add-filter">Add</button>
+            </section>
+        </section>
+        <section class="current-filters">
+            <h3>Current Filters</h3>
+            <ul id="filter-list"></ul>
+        </section>
     </section>
 
     <label for="ratingRange">Select Rating:</label>

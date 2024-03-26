@@ -136,6 +136,40 @@
     }
   }
 
+  function checkDash(){
+    pageURL = window.location.href;
+    if (pageURL.includes('-')){
+      rating -= 1.0;
+      issues.push({
+        reason: "Domain Name includes (-) symbol",
+        description: "The dash symbol is rarely used in legitimate URLs. Phishers tend to add prefixes or suffixes separated by (-) to the domain name so that users feel that they are dealing with a legitimate webpage. "
+      });
+    }
+  }
+
+  function checkRedirect(){
+    pageURL = window.location.href;
+    if (pageURL.substring(7).includes('//')){
+      rating -= 1.0;
+      issues.push({
+        reason: "Link redirects to another site",
+        description: "The existence of “//” within the URL path means that the user will be redirected to another website."
+      });
+    }
+  }
+
+  function checkSubdomains(){
+    pageURL = window.location.href;
+    regex = new RegExp(".", 'g');
+    if ((pageURL.match(regex) || []).length > 3){
+      rating -= 1.0;
+      issues.push({
+        reason: "URL contains multiple subdomains",
+        description: "place holder"
+      });
+    }
+  }
+
   // Explanation can either be a string or an HTML element
   function createIssueListItem(reason, explanation) {
     let li = document.createElement("li");
@@ -300,6 +334,9 @@
     hasAt();
     unsafeExtension();
     checkLongUrl();
+    checkRedirect();
+    checkSubdomains();
+    checkDash();
 
     if (rating < 0) {
       rating = 0;
@@ -310,7 +347,7 @@
       const dataArray = {
         domainURL: pageURL,
         domainTitle: pageTitle,
-        eventTime: timeAccessed,
+        timeAccessed: timeAccessed,
         domainRating: rating,
         reasonNoHttps: httpsUnsafe,
         reasonShortened: shortUnsafe,

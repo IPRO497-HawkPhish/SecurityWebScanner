@@ -12,20 +12,18 @@
         <a href="popup.html">Home</a>
         <a href="report.html">Ratings</a>
     </header>
-    <label for="country">Select Country:</label>
-    <input type="checkbox" id="country1" name="country1" value="RUS">
-    <label for="country1">Russia</label><br>
-    <input type="checkbox" id="country2" name="country2" value="CN">
-    <label for="country2">China</label><br>
-    <input type="checkbox" id="country3" name="country3" value="JP">
-    <label for="country3">Japan</label><br>
-    <label for="ratingRange">Add URL/Country Code:</label>
-    <input type="text" id="newFilter">
+    
+    <label for="new-filter">New filter</label>
+    <input type="text" name="new-filter" id="new-filter">
+    <button id="add-filter">Add Filter</button>
 
-    <button id="addFilter">Add</button>
+    <section class="current-filters">
+        <h2>Current Filters</h2>
+        <ul id="filter-list"></ul>
+    </section>
 
     <label for="ratingRange">Select Rating:</label>
-    <input type="number" id="ratingRange" min="0" max="5">
+    <input type="range" id="ratingRange" min="0" max="5">
 
     <button id="confirmSettings">Confirm</button>
 

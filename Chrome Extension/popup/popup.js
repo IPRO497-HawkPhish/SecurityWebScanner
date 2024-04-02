@@ -48,64 +48,59 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         let report = data[activeTab];
         var rating = report.rating;
         var issues = report.issues;
-        var ratingRange = report.popupRatingRange;
         var q_links = report.questionableLinks;
+          
+        var starWrapper = document.getElementById('star_rating');
+
+        function getStarImage(rating, i) {
+            if (i < Math.floor(rating)) {
+                return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
+            } else if (i === Math.floor(rating) && rating % 1 !== 0) {
+                return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
+            } else {
+                return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
+            }
+        }
+
+        function createStar(src) {
+            const starImg = document.createElement("img");
+            starImg.src = chrome.runtime.getURL(src);
+            starImg.classList.add("star");
+            return starImg;
+        }
         
-      var rangeWrapper = document.getElementById('ratingRange');
-      ratingRange != null ?? (rangeWrapper.textContent = ratingRange);
-      ratingRange == null ?? (rangeWrapper.textContent = 4);
+        starWrapper.innerHTML = ''; // Clear existing stars before appending new ones
+        for (let i = 0; i < 5; i++) {
+            starWrapper.appendChild(createStar(getStarImage(rating, i)));
+        }
+
+        // Display the safety message if the rating is 5
+        var safetyMessage = document.getElementById('safety_message');
+        if (rating >= 5) {
+            safetyMessage.style.display = 'block';
+        } else {
+            safetyMessage.style.display = 'none';
+        }
         
-      var starWrapper = document.getElementById('star_rating');
+        var issueWrapper = document.getElementById('page_issues');
 
-      function getStarImage(rating, i) {
-          if (i < Math.floor(rating)) {
-              return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
-          } else if (i === Math.floor(rating) && rating % 1 !== 0) {
-              return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
-          } else {
-              return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
-          }
-      }
+        let issueList = document.createElement("ol");
+        issueList.classList.add("issues-list");
+        for (let issue of issues) {
+            let issueElement = createIssueListItem(issue.reason, issue.description);
+            issueList.appendChild(issueElement);
+        }
 
-      function createStar(src) {
-          const starImg = document.createElement("img");
-          starImg.src = chrome.runtime.getURL(src);
-          starImg.classList.add("star");
-          return starImg;
-      }
-      
-      starWrapper.innerHTML = ''; // Clear existing stars before appending new ones
-      for (let i = 0; i < 5; i++) {
-          starWrapper.appendChild(createStar(getStarImage(rating, i)));
-      }
-
-      // Display the safety message if the rating is 5
-      var safetyMessage = document.getElementById('safety_message');
-      if (rating >= 5) {
-          safetyMessage.style.display = 'block';
-      } else {
-          safetyMessage.style.display = 'none';
-      }
-      
-      var issueWrapper = document.getElementById('page_issues');
-
-      let issueList = document.createElement("ol");
-      issueList.classList.add("issues-list");
-      for (let issue of issues) {
-          let issueElement = createIssueListItem(issue.reason, issue.description);
-          issueList.appendChild(issueElement);
-      }
-
-      if (q_links.length > 0) {
-          let linksList = document.createElement("ul");
-          for (let link of q_links) {
-              let linkElement = document.createElement("li");
-              linkElement.innerHTML = link;
-              linksList.appendChild(linkElement);
-          }
-          let issueElement = createIssueListItem(`${q_links.length} questionable links found.`, linksList);
-          issueList.appendChild(issueElement);
-      }
-      issueWrapper.appendChild(issueList);
+        if (q_links.length > 0) {
+            let linksList = document.createElement("ul");
+            for (let link of q_links) {
+                let linkElement = document.createElement("li");
+                linkElement.innerHTML = link;
+                linksList.appendChild(linkElement);
+            }
+            let issueElement = createIssueListItem(`${q_links.length} questionable links found.`, linksList);
+            issueList.appendChild(issueElement);
+        }
+        issueWrapper.appendChild(issueList);
   });
 });

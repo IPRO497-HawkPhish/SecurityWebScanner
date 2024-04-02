@@ -1,23 +1,4 @@
 {
-  // Listen for messages from settings.js
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === 'updateSettings') {
-        var selectedCountries = request.countries;
-        var selectedRating = request.rating;
-
-        // Update countries list
-        countries = selectedCountries;
-
-        // Update popupRatingRange
-        popupRatingRange = selectedRating;
-
-        // Optionally, you can store the updated values in Chrome storage if needed
-        chrome.storage.sync.set({ 
-            countries: selectedCountries, 
-            ratingRange: selectedRating 
-        });
-    }
-  });
 
   // Data variables
   var timeAccessed;
@@ -32,9 +13,26 @@
   var extensionUnsafe = false;
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
-  //popupRatingRange == null ?? (popupRatingRange = 3);
+  var popupRatingRange;
+
+  chrome.storage.sync.get(['ratingRange'], (data) => {
+    popupRatingRange = data.ratingRange;
+    if (popupRatingRange == null){
+      popupRatingRange = 3;
+      chrome.storage.sync.set({ 'ratingRange': popupRatingRange });
+    }
+  })
+
   let questionableLinks = [];
-  //countries.length == 0 ?? (countries = []);
+  var filters;
+  
+  chrome.storage.sync.get(['filter-list'], (data) => {
+    filters = data.filters;
+    if (filters.length == null){
+      filters = [];
+      chrome.storage.sync.set({ 'filters': filters });
+    }
+  })
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
 
@@ -316,8 +314,7 @@
     let data = {
       "rating": rating,
       "issues": issues,
-      "questionableLinks": questionableLinks,
-      "ratingRange": popupRatingRange
+      "questionableLinks": questionableLinks
     };
 
     chrome.storage.sync.set({ [pageURL]: data });
@@ -341,7 +338,7 @@
     if (rating < 0) {
       rating = 0;
     }
-    if (rating <= 5) {
+    if (rating <= popupRatingRange) {
       // Get the data for backend
       fetchData();
       const dataArray = {

@@ -29,10 +29,12 @@ function createFilterElement(filter) {
 }
 
 // Load saved rating range from storage
-chrome.storage.sync.get(['ratingRange'], function(data) {
+chrome.storage.sync.get(['ratingRange'], (data) => {
     var savedRating = data.ratingRange;
+
     if (savedRating) {
-        ratingInput.value = savedRating;
+        var currentRatingRange = document.getElementById('ratingRangeVal');
+        currentRatingRange.innerHTML = "Current: " + savedRating;
     }
 });
 
@@ -87,13 +89,13 @@ document.getElementById('confirmSettings').addEventListener('click', function() 
     });
 
     // Save filters to storage
-    chrome.storage.sync.set({ filters: filters });
+    chrome.storage.sync.set({'filters': filters });
 
     // Save rating range
     var ratingInput = document.getElementById('ratingRange');
     var selectedRating = parseInt(ratingInput.value);
 
-    chrome.storage.sync.set({ ratingRange: selectedRating });
+    chrome.storage.sync.set({'ratingRange': selectedRating });
 
     location.reload();
 });

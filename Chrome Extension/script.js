@@ -14,6 +14,8 @@
   var longUrlUnsafe = false;
   var rating = 5; // out of 5 stars
   var popupRatingRange;
+  var redirect = false;
+  var dashes = false;
 
   chrome.storage.sync.get(['ratingRange'], (data) => {
   var ratingRange = data.ratingRange;
@@ -139,7 +141,7 @@
   function checkDash(){
     pageURL = window.location.href;
     if (pageURL.includes('-')){
-      rating -= 1.0;
+      rating -= 0.5;
       issues.push({
         reason: "Domain Name includes (-) symbol",
         description: "The dash symbol is rarely used in legitimate URLs. Phishers tend to add prefixes or suffixes separated by (-) to the domain name so that users feel that they are dealing with a legitimate webpage. "
@@ -158,17 +160,17 @@
     }
   }
 
-  function checkSubdomains(){
-    pageURL = window.location.href;
-    regex = new RegExp(".", 'g');
-    if ((pageURL.match(regex) || []).length > 3){
-      rating -= 1.0;
-      issues.push({
-        reason: "URL contains multiple subdomains",
-        description: "place holder"
-      });
-    }
-  }
+  // function checkSubdomains(){
+  //   pageURL = window.location.href;
+  //   regex = new RegExp(".", 'g');
+  //   if ((pageURL.match(regex) || []).length > 3){
+  //     rating -= 1.0;
+  //     issues.push({
+  //       reason: "URL contains multiple subdomains",
+  //       description: "place holder"
+  //     });
+  //   }
+  // }
 
   // Explanation can either be a string or an HTML element
   function createIssueListItem(reason, explanation) {
@@ -335,7 +337,6 @@
     unsafeExtension();
     checkLongUrl();
     checkRedirect();
-    checkSubdomains();
     checkDash();
 
     if (rating < 0) {
@@ -356,18 +357,11 @@
         reasonShortened: shortUnsafe,
         reasonAtSymbol: atUnsafe,
         reasonBadExtension: extensionUnsafe,
+        reasonRedirect: redirect,
+        reasonDash: dashes,
         clicked_count: 0
       };
 
-      console.log(typeof pageURL);
-      console.log(typeof pageTitle);
-      console.log(typeof timeAccessed);
-      console.log(typeof rating);
-      console.log(typeof httpsUnsafe);
-      console.log(typeof shortUnsafe);
-      console.log(typeof atUnsafe);
-      console.log(typeof extensionUnsafe);
-      console.log(typeof 0);
       fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
         method: 'POST',
         headers: {

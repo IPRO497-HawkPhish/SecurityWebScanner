@@ -16,12 +16,15 @@
   var popupRatingRange;
 
   chrome.storage.sync.get(['ratingRange'], (data) => {
-    popupRatingRange = data.ratingRange;
+  var ratingRange = data.ratingRange;
+    if (ratingRange){
+      popupRatingRange = ratingRange;
+    }
     if (popupRatingRange == null){
       popupRatingRange = 3;
       chrome.storage.sync.set({ 'ratingRange': popupRatingRange });
     }
-  })
+  });
 
   let questionableLinks = [];
   var filters;
@@ -32,10 +35,9 @@
       filters = [];
       chrome.storage.sync.set({ 'filters': filters });
     }
-  })
+  });
+
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
-
-
 
   function fetchData() {
     let event = new Date();
@@ -314,7 +316,8 @@
     let data = {
       "rating": rating,
       "issues": issues,
-      "questionableLinks": questionableLinks
+      "questionableLinks": questionableLinks,
+      "ratingRange": popupRatingRange
     };
 
     chrome.storage.sync.set({ [pageURL]: data });
@@ -338,6 +341,9 @@
     if (rating < 0) {
       rating = 0;
     }
+
+    console.log(popupRatingRange);
+
     if (rating <= popupRatingRange) {
       // Get the data for backend
       fetchData();

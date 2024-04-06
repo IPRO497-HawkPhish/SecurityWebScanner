@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="settings">
-    <header class="popup-header">
-        <img src="logo/phish.png" alt="Logo" class="logo"> 
-        <h1 class="popup-title">HawkPhish Settings</h1>
-        <a href="popup.html">Home</a>
-        <a href="report.html">Ratings</a>
-    </header>
-    
+    <div class="popup-container">
+        <header class="popup-header">
+            <img src="logo/phish.png" alt="HawkPhish Logo" class="logo">
+            <h1>HawkPhish Settings</h1>
+            <nav class="popup-nav">
+                <a href="popup.html">Home</a>
+                <a href="report.html">Site Ratings</a>
+            </nav>
+        </header>
     <section>
         <h2>Filters</h2>
         <section class="create-filter">
@@ -32,13 +34,20 @@
         <h2>Ratings</h2>
         <sub id="ratingRangeVal"></sub>
         <label for="ratingRange">Minimum Rating (1-5):</label>
-        <input type="range" id="ratingRange" min="0" max="5">
+        <input type="range" id="ratingRange" min="1" max="5">
+        <div class="slider-marks">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
     </section>
 
     <footer>
         <button id="confirmSettings">Confirm</button>
     </footer>
-
+    </div>
     <script src="settings.js"></script>
 </body>
 </html>

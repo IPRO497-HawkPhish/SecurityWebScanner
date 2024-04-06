@@ -186,38 +186,135 @@ h1 {
     height: 100%; /* Make the popup container fill the height */
 }
 
-/* Settings page styles */
-#settings .input-with-button {
-    display: flex;
+/* Filters Section */
+.create-filter {
+    background-color: #48495a; /* Dark background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the section */
+    margin-bottom: 30px; /* Space below the section */
 }
 
-#settings #filter-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    max-height: 6rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+.create-filter label {
+    color: #d1d1e0; /* Light grey color for label */
+    font-size: 18px; /* Font size for label */
+    margin-bottom: 10px; /* Space below the label */
+    display: block; /* Make the label take the full width */
 }
 
-#settings #filter-list li {
-    display: flex;
+.input-with-button {
+    display: flex; /* Align input and button side by side */
+    margin-top: 10px; /* Space above the input and button */
 }
 
-#settings #filter-list li:nth-child(even) {
-    background-color: gainsboro;
+.input-with-button input[type="text"] {
+    flex-grow: 1; /* Input takes up remaining space */
+    margin-right: 10px; /* Space between input and button */
+    padding: 10px; /* Padding inside input */
+    border: 1px solid #5a5c9a; /* Border color matching theme */
+    border-radius: 5px; /* Rounded corners for input */
 }
 
-#settings #filter-list li input,
-#settings #filter-list li button {
+.input-with-button button {
+    padding: 10px 20px; /* Padding inside button */
+    background-color: #5a5c9a; /* Background color for button */
+    color: #fff; /* Text color for button */
+    border: none; /* No border for button */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+}
+
+.input-with-button button:hover {
+    background-color: #787a9a; /* Darken button on hover */
+}
+
+.current-filters ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.current-filters li {
+    background-color: #33334d; /* Background color for list items */
+    margin: 5px 0; /* Space between list items */
+    padding: 10px; /* Padding inside list items */
+    border-radius: 5px; /* Rounded corners for list items */
+    color: #a7a9be; /* Text color for list items */
+}
+
+
+/* Ratings Section */
+/* Increase size for 'Minimum Rating' label */
+label[for="ratingRange"] {
+    font-size: 20px; /* Increased font size */
+    display: block; /* Display as block to take full width */
+    text-align: center; /* Center align the text */
+    margin-top: 20px; /* Add top margin for spacing */
+    color: #d1d1e0; /* Adjusting color for visibility */
+}
+
+
+#ratingRangeVal {
+    display: block; /* Make the rating value display as block */
+    text-align: center; /* Center-align the rating value text */
+    color: #a7a9be; /* Text color for the rating value */
+    font-size: 18px; /* Font size for the rating value */
+    margin-top: 10px; /* Space above the rating value */
+}
+
+/* Slider ticks */
+#ratingRange::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #6f71a9, #33334d); /* Start with a lighter purple and transition to dark blue */
+    border-radius: 5px;
+    height: 10px;
+}
+
+/* Thumb styling */
+#ratingRange::-webkit-slider-thumb {
+    background: #5a5c9a;
     border: none;
-    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-top: -5px; /* Half of the extra height to align with the track */
 }
 
-#settings #filter-list li.to-remove,
-#settings #filter-list li.to-remove input,
-#settings #filter-list li.to-remove button {
-    background-color: #48495a;
-    color: white;
+/* Make the slider thumb larger and more visible */
+#ratingRange {
+    -webkit-appearance: none; /* Override default appearance */
+    width: 100%; /* Ensure full width */
+    height: 10px; /* Specific height for the slider track */
+    background: transparent; /* Transparent background */
+    outline: none; /* Remove default focus outline */
 }
+
+.slider-marks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; /* Adjust based on actual layout */
+}
+
+.slider-marks span {
+    color: #e4e4e7;
+    font-size: 16px;
+}
+
+
+/* Rating Range*/
+.rating-range-section {
+    display: block; /* Aligns the label and value in a row */
+    align-items: center; /* Centers the items vertically */
+    padding: 10px 0; /* Adds some vertical padding for spacing */
+}
+
+.rating-range-label {
+    margin-right: 10px; /* Adds some space between the label and the value */
+    align-items: center;
+    font-size: 14px; /* Adjust font size as needed */
+    color: #a7a9be; /* Soft purple color for the label */
+}
+
+.ratingRange {
+    font-size: 14px; /* Matching the label font size */
+    color: #f4f4f4; /* Light color for the value for contrast */
+}
+

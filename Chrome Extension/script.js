@@ -27,10 +27,14 @@
   });
 
   let questionableLinks = [];
+  let flaggedFilters = [];
   var filters;
   
-  chrome.storage.sync.get(['filter-list'], (data) => {
-    filters = data.filters;
+  chrome.storage.sync.get(['filters'], (data) => {
+    var filterList = data.filters;
+    if (filterList){
+      filters = filterList;
+    }
     if (filters.length == null){
       filters = [];
       chrome.storage.sync.set({ 'filters': filters });
@@ -39,7 +43,7 @@
 
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
-  function fetchData() {
+  function fetchData(filters) {
     let event = new Date();
     timeAccessed = event.toString();
     pageTitle = document.title;
@@ -67,6 +71,14 @@
         questionableLinks.push(href);
         rating -= 0.5;
       }
+    }
+
+    if (filters != null && filters.length > 0){
+      filters.forEach(filter => {
+        if (pageURL.includes(filter)) {
+          flaggedFilters.push(filter);
+        }
+      });
     }
   };
 
@@ -281,6 +293,19 @@
       
       issueList.appendChild(issueElement);
     }
+
+    if (flaggedFilters.length > 0) {
+      let flagList = document.createElement("ul");
+      for (let flag of flaggedFilters) {
+        let filter = document.createElement("li");
+        
+        filter.innerHTML = flag;
+        flagList.appendChild(filter);
+      }
+      let issueElement = createIssueListItem(`${flaggedFilters.length} filters flagged.`, flagList);
+      
+      issueList.appendChild(issueElement);
+    }
     report.appendChild(issueList);
 
     let reportFooter = document.createElement("p");
@@ -317,7 +342,8 @@
       "rating": rating,
       "issues": issues,
       "questionableLinks": questionableLinks,
-      "ratingRange": popupRatingRange
+      "ratingRange": popupRatingRange,
+      "filters": filters
     };
 
     chrome.storage.sync.set({ [pageURL]: data });
@@ -344,51 +370,52 @@
 
     console.log(popupRatingRange);
 
-    if (rating <= popupRatingRange) {
-      // Get the data for backend
-      fetchData();
-      const dataArray = {
-        domainURL: pageURL,
-        domainTitle: pageTitle,
-        timeAccessed: timeAccessed,
-        domainRating: rating,
-        reasonNoHttps: httpsUnsafe,
-        reasonShortened: shortUnsafe,
-        reasonAtSymbol: atUnsafe,
-        reasonBadExtension: extensionUnsafe,
-        clicked_count: 0
-      };
+    // Get the data for backend
+    fetchData(filters);
+    const dataArray = {
+      domainURL: pageURL,
+      domainTitle: pageTitle,
+      timeAccessed: timeAccessed,
+      domainRating: rating,
+      reasonNoHttps: httpsUnsafe,
+      reasonShortened: shortUnsafe,
+      reasonAtSymbol: atUnsafe,
+      reasonBadExtension: extensionUnsafe,
+      clicked_count: 0
+    };
 
-      console.log(typeof pageURL);
-      console.log(typeof pageTitle);
-      console.log(typeof timeAccessed);
-      console.log(typeof rating);
-      console.log(typeof httpsUnsafe);
-      console.log(typeof shortUnsafe);
-      console.log(typeof atUnsafe);
-      console.log(typeof extensionUnsafe);
-      console.log(typeof 0);
-      fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // Add any additional headers if required (e.g., authentication headers)
-        },
-        body: JSON.stringify(dataArray),
-        mode: 'no-cors',
-      })
-      .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();  // Assuming the server returns JSON data
-      })
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    console.log(typeof pageURL);
+    console.log(typeof pageTitle);
+    console.log(typeof timeAccessed);
+    console.log(typeof rating);
+    console.log(typeof httpsUnsafe);
+    console.log(typeof shortUnsafe);
+    console.log(typeof atUnsafe);
+    console.log(typeof extensionUnsafe);
+    console.log(typeof 0);
+    fetch('http://ec2-18-223-137-231.us-east-2.compute.amazonaws.com:8000/frontendAPI/', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if required (e.g., authentication headers)
+      },
+      body: JSON.stringify(dataArray),
+      mode: 'no-cors',
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();  // Assuming the server returns JSON data
+    })
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    if (rating <= popupRatingRange) {
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();
       sendReportToPopup();

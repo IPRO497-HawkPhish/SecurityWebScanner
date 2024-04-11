@@ -49,10 +49,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var rating = report.rating;
         var issues = report.issues;
         var q_links = report.questionableLinks;
-        var filters = report.filters;
+        var flaggedFilters = report.flaggedFilters;
           
         //var filtersWrapper = document.getElementById('filters');
-        //filtersWrapper.innerHTML = filters;
           
         var starWrapper = document.getElementById('star_rating');
 
@@ -106,5 +105,19 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             issueList.appendChild(issueElement);
         }
         issueWrapper.appendChild(issueList);
+
+        if (flaggedFilters.length > 0) {
+          let flagList = document.createElement("ul");
+          for (let flag of flaggedFilters) {
+            let filter = document.createElement("li");
+            
+            filter.innerHTML = flag;
+            flagList.appendChild(filter);
+          }
+          let issueElement = createIssueListItem(`${flaggedFilters.length} filters flagged.`, flagList);
+          
+          issueList.appendChild(issueElement);
+        }
+        report.appendChild(issueList);
   });
 });

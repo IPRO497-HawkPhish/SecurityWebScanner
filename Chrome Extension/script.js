@@ -45,7 +45,7 @@
 
   let unsafeDomains = ['.cf', '.work', '.ml', '.ga', '.gq', '.fit', '.tk', '.ru', '.to', '.live', '.cn', '.top', '.xyz', '.pw', '.ws', '.cc', '.buzz'];
 
-  function fetchData(filters) {
+  function fetchData() {
     let event = new Date();
     timeAccessed = event.toString();
     pageTitle = document.title;
@@ -74,14 +74,20 @@
         rating -= 0.5;
       }
     }
+  };
+
+  function evaluateFilters() {
+    pageURL = window.location.href;
 
     if (filters != null && filters.length > 0){
-      filters.forEach(filter => {
-        if (pageURL.includes(filter)) {
-          flaggedFilters.push(filter);
+      filters.forEach((filter) => {
+        if (pageURL.includes(filter.expression) && filter.enabled == true) {
+          flaggedFilters.push(filter.expression);
         }
       });
     }
+
+    console.log(flaggedFilters);
   };
 
   // For end-to-end
@@ -248,25 +254,25 @@
       starImg.src = chrome.runtime.getURL(src);
       starImg.classList.add("star");
       return starImg;
-  }
+    }
   
-  function getStarImage(rating, i) {
-      if (i < Math.floor(rating)) {
-          return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
-      } else if (i === Math.floor(rating) && rating % 1 !== 0) {
-          return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
-      } else {
-          return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
-      }
-  }
+    function getStarImage(rating, i) {
+        if (i < Math.floor(rating)) {
+            return rating < 3 ? "/assets/icons/icons8-star-50-rf.png" : (rating <= 4 ? "/assets/icons/star-fill.png" : "/assets/icons/icons8-star-50-gf.png");
+        } else if (i === Math.floor(rating) && rating % 1 !== 0) {
+            return rating < 3 ? "/assets/icons/icons8-star-half-empty-50-r.png" : (rating <= 4 ? "/assets/icons/star-half.png" : "/assets/icons/icons8-star-half-empty-50-g.png");
+        } else {
+            return rating < 3 ? "/assets/icons/icons8-star-50-re.png" : "/assets/icons/star-empty.png";
+        }
+    }
   
-  let starWrapper = document.createElement("div");
-  
-  for (let i = 0; i < 5; i++) {
-      starWrapper.appendChild(createStar(getStarImage(rating, i)));
-  }
-  
-  prompt.appendChild(starWrapper);
+    let starWrapper = document.createElement("div");
+    
+    for (let i = 0; i < 5; i++) {
+        starWrapper.appendChild(createStar(getStarImage(rating, i)));
+    }
+    
+    prompt.appendChild(starWrapper);
 
     // Security report
     let report = document.createElement("section");
@@ -298,6 +304,8 @@
       issueList.appendChild(issueElement);
     }
 
+
+
     if (flaggedFilters.length > 0) {
       let flagList = document.createElement("ul");
       for (let flag of flaggedFilters) {
@@ -311,6 +319,8 @@
       issueList.appendChild(issueElement);
     }
     report.appendChild(issueList);
+
+
 
     let reportFooter = document.createElement("p");
     reportFooter.innerHTML += "We recommend you press Cancel to return to the previous page now. If you wish to proceed at your own risk, press OK.";
@@ -347,7 +357,7 @@
       "issues": issues,
       "questionableLinks": questionableLinks,
       "ratingRange": popupRatingRange,
-      "filters": filters
+      "flaggedFilters": flaggedFilters
     };
 
     chrome.storage.sync.set({ [pageURL]: data });
@@ -356,7 +366,6 @@
   // Main function, on page load
   window.onload = function () {
     safe = true;
-    window.onload = null;
 
     // Run security checks
     isNotHttps();
@@ -366,15 +375,19 @@
     checkLongUrl();
     checkRedirect();
     checkDash();
+    evaluateFilters();
 
     if (rating < 0) {
       rating = 0;
     }
 
     console.log(popupRatingRange);
+    console.log(filters);
+    console.log(flaggedFilters);
 
     // Get the data for backend
     fetchData(filters);
+
     const dataArray = {
       domainURL: pageURL,
       domainTitle: pageTitle,
@@ -418,7 +431,7 @@
       console.error('Error:', error);
     });
 
-    if (rating <= popupRatingRange) {
+    if (rating <= popupRatingRange || flaggedFilters.length > 0) {
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();
       sendReportToPopup();

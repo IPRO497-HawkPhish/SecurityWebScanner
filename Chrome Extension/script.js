@@ -397,6 +397,8 @@
       reasonShortened: shortUnsafe,
       reasonAtSymbol: atUnsafe,
       reasonBadExtension: extensionUnsafe,
+      reasonRedirect: redirect,
+      reasonDashes: dashes,
       clicked_count: 0
     };
 

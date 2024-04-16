@@ -15,14 +15,14 @@
   var dashes = false;
   var redirect = false;
   var rating = 5; // out of 5 stars
-  var popupRatingRange;
+  var popupRatingRange = 3;
 
   chrome.storage.sync.get(['ratingRange'], (data) => {
   var ratingRange = data.ratingRange;
     if (ratingRange){
       popupRatingRange = ratingRange;
     }
-    if (popupRatingRange == null){
+    if (popupRatingRange == undefined || popupRatingRange == null){
       popupRatingRange = 3;
       chrome.storage.sync.set({ 'ratingRange': popupRatingRange });
     }
@@ -432,7 +432,6 @@
     .catch(error => {
       console.error('Error:', error);
     });
-
     if (rating <= popupRatingRange || flaggedFilters.length > 0) {
       // Show user the rating, security report, and prompt them to go back
       showSecurityPrompt();

@@ -2,7 +2,8 @@
 
 Download/Install Instructions (For Chromium based browsers):
 
-1. Download the zip file
+1. Download the zip file (Click on green <img width="80" alt="image" src="https://github.com/IPRO497-HawkPhish/SecurityWebScanner/assets/114318065/98dad2ba-d2a6-4895-a475-f47f403ef9d6"> then click Download Zip)
+
 
 2. Extract zip file
 

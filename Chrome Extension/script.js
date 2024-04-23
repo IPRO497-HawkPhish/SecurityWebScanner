@@ -333,14 +333,14 @@
     prompt.appendChild(inputs);
     let cancel = document.createElement("button");
     cancel.classList.add("suggested-action");
-    cancel.innerHTML = "Cancel";
+    cancel.innerHTML = "Go Back";
     cancel.onclick = function () {
       window.history.back();
     };
     inputs.appendChild(cancel);
 
     let ok = document.createElement("button");
-    ok.innerHTML = "OK";
+    ok.innerHTML = "Continue";
     ok.onclick = function () {
       dialog.close();
     };

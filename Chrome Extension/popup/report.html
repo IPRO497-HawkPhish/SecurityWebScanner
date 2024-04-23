@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HawkPhish</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Your custom styles -->
+</head>
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <img src="logo/phish.png" alt="HawkPhish Logo" class="logo">
+            <h1>HawkPhish Rating</h1>
+            <nav class="popup-nav">
+                <a href="popup.html">Home</a>
+                <a href="settings.html">Settings</a>
+            </nav>
+        </header>
+        <h1>Rating:</h1>
+        <div class="filters" id="filters"></div>
+        <div class="star-rating" id="star_rating">
+        </div>
+        <div class="safety-message" id="safety_message" style="display:none;">
+            This website is safe to use.
+        </div>
+
+        <div id="page_issues"></div>
+        <div id="questionable_links"></div>
+
+        <footer class="popup-footer">
+            <p>Powered by advanced algorithms, HawkPhish is the shield that keeps your online experience secure.</p>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

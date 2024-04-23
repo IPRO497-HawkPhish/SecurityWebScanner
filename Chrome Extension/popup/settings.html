@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extension Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="settings">
+    <div class="popup-container">
+        <header class="popup-header">
+            <img src="logo/phish.png" alt="HawkPhish Logo" class="logo">
+            <h1>HawkPhish Settings</h1>
+            <nav class="popup-nav">
+                <a href="popup.html">Home</a>
+                <a href="report.html">Site Ratings</a>
+            </nav>
+        </header>
+    <section>
+        <h2>Filters</h2>
+        <section class="create-filter">
+            <label for="new-filter">New filter</label>
+            <section class="input-with-button">
+                <input type="text" name="new-filter" id="new-filter" autocomplete="off">
+                <button id="add-filter">Add</button>
+            </section>
+        </section>
+        <section class="current-filters">
+            <h3>Current Filters</h3>
+            <ul id="filter-list"></ul>
+        </section>
+    </section>
+
+    <section>
+        <h2>Ratings</h2>
+        <sub id="ratingRangeVal"></sub>
+        <label for="ratingRange">Minimum Rating (1-5):</label>
+        <input type="range" id="ratingRange" min="1" max="5">
+        <div class="slider-marks">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
+    </section>
+
+    <footer>
+        <button id="confirmSettings">Confirm</button>
+    </footer>
+    </div>
+    <script src="settings.js"></script>
+</body>
+</html>

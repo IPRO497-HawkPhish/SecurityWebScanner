@@ -3,7 +3,11 @@
     "name": "HawkPhish",
     "description": "Web Scanner and Security Summarizer",
     "version": "2.0",
-    "permissions": ["activeTab"],
+    "permissions": [
+      "activeTab",
+      "storage",
+      "tabs"
+    ], 
 
     "icons": {
       "16": "popup/logo/phish.png",
@@ -21,5 +25,10 @@
         "js": ["script.js"],
         "css": ["assets/css/main.css"]
       }
-    ]
+    ],
+
+    "web_accessible_resources": [{ 
+      "resources": ["assets/icons/star-fill.png", "assets/icons/star-half.png", "assets/icons/star-empty.png", "assets/icons/icons8-star-50-rf.png", "assets/icons/icons8-star-half-empty-50-r.png", "assets/icons/icons8-star-50-re.png", "assets/icons/icons8-star-50-gf.png", "assets/icons/icons8-star-half-empty-50-g.png"],
+      "matches": ["<all_urls>"]
+    }]
 }

@@ -1,81 +1,320 @@
 body {
-    background-color: #5F4B8BFF; /* A background */
-    font-family: Arial, sans-serif; /* A more neutral font choice */
-    color: #040303; /* Dark grey color for text */
+    background-color: #33334d; /* Deep blue background for a professional and modern look */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* A clean, modern font choice */
+    color: #f4f4f4; /* Light grey text for contrast and readability */
     margin: 0;
-    padding: 15px; /* Spacing from edges */
+    padding: 15px; /* Consistent spacing from edges */
 }
 
+/* Header */
 .header {
-    text-align: center; /* Center the header content */
+    text-align: center; /* Center-align the header content */
+    margin-bottom: 20px; /* Provide spacing between the header and content */
 }
 
+/* Logo */
 .logo {
-    width: 120px; /* Set the width of your logo */
-    height: 120px; /* Maintain aspect ratio */
-    margin-bottom: 5px; /* Space below the logo */
-    border: 2px solid #5F4B8BFF; /* Add a solid border with a color that complements the logo */
-    border-radius: 50%; /* Makes the logo round, remove if the logo isn't circular */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
-    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+    width: 100px; /* Optimal width for logo */
+    height: 100px; /* Maintain aspect ratio */
+    margin: 0 auto 20px; /* Center logo and provide spacing below */
+    border: 5px solid #5a5c9a; /* Solid border color matching the theme */
+    border-radius: 50%; /* Circular shape for the logo */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for effects */
 }
 
 .logo:hover {
-    transform: rotate(5deg) scale(1.1); /* Rotate slightly and scale up on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increase shadow size on hover */
+    transform: scale(1.1); /* Slight increase in size on hover */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
 }
 
-
+/* Typography */
 h1 {
-    color: #5F4B8BFF; /* A darker shade for the title for better contrast */
-    font-size: 24px;
+    color: #ffffff; /* Bright white for the main title for standout readability */
+    font-size: 30px; /* Prominent font size for the main title */
+    font-weight: 300; /* Lighter font weight for a modern look */
     margin-bottom: 10px; /* Space below the title */
 }
 
 .section h2, .popup-section h2 {
-    color: #5F4B8BFF; /* Same color as the title for consistency */
-    font-size: 18px;
-    border-bottom: 1px solid #ccc; /* A subtle separator */
+    color: #a7a9be; /* Soft purple for subheadings, adding depth to the color scheme */
+    font-size: 22px;
+    border-bottom: 2px solid #5a5c9a; /* Subtle separator with theme color */
     padding-bottom: 5px; /* Space above the border */
-    margin-bottom: 10px; /* Space below the heading */
+    margin-bottom: 20px; /* Space below the heading */
 }
 
 .section p, .popup-section p {
-    background-color: #fff; /* White background for the text */
-    padding: 10px; /* Spacing inside the paragraphs */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    font-size: 14px; /* Slightly smaller font size for body text */
-    line-height: 1.6; /* Increased line height for readability */
-    margin-bottom: 15px; /* Space below paragraphs */
+    background-color: #48495a; /* Dark background for paragraph blocks, adding contrast */
+    padding: 15px; /* Spacing inside the paragraphs */
+    border-radius: 8px; /* Smoothly rounded corners for elegance */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3); /* Inner shadow for a subtle inset effect */
+    font-size: 16px; /* Comfortable font size for reading */
+    line-height: 1.8; /* Enhanced line height for readability */
+    margin-bottom: 20px; /* Space below paragraphs */
+    color: #d1d1e0; /* Light grey color for paragraph text for readability */
 }
 
+/* Popup container */
 .popup-container {
-    background-color: #E69A8DFF; /* Lighter background to distinguish popup */
-    border-radius: 10px; /* Rounded corners for the popup */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More pronounced shadow for popup */
-    padding: 30px; /* Increased spacing inside the popup */
-    width: 500px; /* Fixed width for square shape */
-    height: 700px; /* Fixed height for square shape */
+    background-color: #40415a; /* Darker shade for the popup to stand out */
+    border-radius: 15px; /* Rounded corners for a modern, friendly appearance */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Pronounced shadow for a floating effect */
+    padding: 40px; /* Generous padding inside the popup for a spacious layout */
+    width: 500px; /* Maintain specified width */
+    height: 500px; /* Maintain specified height */
     margin: 30px auto; /* Center popup on the page */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     overflow: auto; /* Add scroll for overflow content */
 }
 
+/* Popup Header */
 .popup-header {
     text-align: center; /* Center the popup header content */
 }
 
 .popup-title {
-    color: #333; /* Darker color for popup title for emphasis */
-    margin-bottom: 20px; /* Space below the popup title */
+    color: #ffffff; /* Bright white for popup title for emphasis */
+    font-size: 40px; /* Slightly larger font size for title */
+    font-weight: bold;
+    margin-bottom: 25px; /* More space below the popup title */
 }
 
+/* Popup Footer */
 .popup-footer p {
-    font-size: 12px; /* Smaller font size for footer text */
+    font-size: 14px; /* Appropriate font size for footer text */
     text-align: center; /* Center the footer content */
-    color: #666; /* Lighter color for a subtle look */
-    margin-top: 20px; /* Space above the footer */
+    color: #a7a9be; /* Soft purple color for a subtle look */
+    margin-top: 30px; /* Space above the footer for clear separation */
+    border-top: 1px solid #5a5c9a; /* Top border for a structured footer */
+    padding-top: 10px; /* Space above the border */
 }
+.popup-p1  {
+    font-size: 23px;
+    text-align: center;
+    color: #ff0000;
+    margin-top: 20px
+}
+/* Star Rating */
+.star-rating {
+    text-align: center; /* Center-align the star rating */
+    font-size: 24px; /* Size of the stars */
+    color: #00c851; /* Gold color for stars */
+    margin: 20px 0; /* Space around the star rating */
+}
+
+/* Safety Message */
+.safety-message {
+    text-align: center; /* Center-align the message */
+    color: #00c851; /* Green color indicating safety */
+    font-size: 24px; /* Font size of the message */
+    margin-top: 10px; /* Space above the message */
+}
+
+.questionable-links {
+    text-align: center; /* Center-align the text */
+    color: #f4f4f4; /* Use the same light grey text for readability */
+    margin: 24px 1; /* Add some top and bottom margin for spacing */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Ensure font consistency */
+}
+
+.popup-header a {
+    color: #a7a9be; /* Soft purple to match the subheadings */
+    text-decoration: none; /* Remove underline from links */
+    margin: 0 10px; /* Horizontal spacing between links */
+    font-size: 18px; /* Comfortable font size for navigation links */
+    font-weight: bold; /* Make the text slightly bolder */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.popup-header a:hover {
+    color: #cfcfea; /* Lighter shade of purple for hover effect */
+}
+
+
+
+/* Setting popup Content */
+.popup-content {
+    text-align: center; /* Center text within the popup */
+    font-size: 20px; /* Increase font size for content */
+    color: #f4f4f4; /* Light grey text color for readability */
+    margin: 1 auto; /* Auto margins for horizontal centering */
+    padding: 20px; /* Padding inside the popup content area */
+}
+
+/* Enhancements for input and button elements within the popup content */
+.popup-content input,
+.popup-content button {
+    font-size: 16px; /* Larger font size for inputs and buttons */
+    margin: 10px 0; /* Margin for spacing around inputs and buttons */
+    padding: 10px; /* Padding inside inputs and buttons */
+    width: 80%; /* Set a specific width for inputs and buttons */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+/* Apply specific styles to the container holding the checkboxes and related labels */
+.popup-content .checkbox-container {
+    text-align: left; /* Align checkboxes to the left */
+    margin: 0 auto; /* Center the container horizontally */
+    display: inline-block; /* Make the container as wide as its content */
+}
+
+/* Labels for checkboxes */
+.popup-content .checkbox-container label {
+    display: block; /* Make each label occupy its own line */
+    font-size: 16px; /* Font size for checkbox labels */
+    color: #f4f4f4; /* Light grey text color for readability */
+    margin: 5px 0; /* Margin for spacing between checkbox labels */
+}
+
+/* Ensure all popup content is centered and easy to read */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure the popup content takes the full available space */
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Make the popup container fill the height */
+}
+
+/* Filters Section */
+.create-filter {
+    background-color: #48495a; /* Dark background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the section */
+    margin-bottom: 30px; /* Space below the section */
+}
+
+.create-filter label {
+    color: #d1d1e0; /* Light grey color for label */
+    font-size: 18px; /* Font size for label */
+    margin-bottom: 10px; /* Space below the label */
+    display: block; /* Make the label take the full width */
+}
+
+.input-with-button {
+    display: flex; /* Align input and button side by side */
+    margin-top: 10px; /* Space above the input and button */
+}
+
+.input-with-button input[type="text"] {
+    flex-grow: 1; /* Input takes up remaining space */
+    margin-right: 10px; /* Space between input and button */
+    padding: 10px; /* Padding inside input */
+    border: 1px solid #5a5c9a; /* Border color matching theme */
+    border-radius: 5px; /* Rounded corners for input */
+}
+
+.input-with-button button {
+    padding: 10px 20px; /* Padding inside button */
+    background-color: #5a5c9a; /* Background color for button */
+    color: #fff; /* Text color for button */
+    border: none; /* No border for button */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+}
+
+.input-with-button button:hover {
+    background-color: #787a9a; /* Darken button on hover */
+}
+
+.current-filters ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.current-filters li {
+    background-color: #33334d; /* Background color for list items */
+    margin: 5px 0; /* Space between list items */
+    padding: 10px; /* Padding inside list items */
+    border-radius: 5px; /* Rounded corners for list items */
+    color: #a7a9be; /* Text color for list items */
+}
+
+
+/* Ratings Section */
+/* Increase size for 'Minimum Rating' label */
+label[for="ratingRange"] {
+    font-size: 20px; /* Increased font size */
+    display: block; /* Display as block to take full width */
+    text-align: center; /* Center align the text */
+    margin-top: 20px; /* Add top margin for spacing */
+    color: #d1d1e0; /* Adjusting color for visibility */
+}
+
+
+#ratingRangeVal {
+    display: block; /* Make the rating value display as block */
+    text-align: center; /* Center-align the rating value text */
+    color: #a7a9be; /* Text color for the rating value */
+    font-size: 18px; /* Font size for the rating value */
+    margin-top: 10px; /* Space above the rating value */
+}
+
+/* Slider ticks */
+#ratingRange::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #6f71a9, #33334d); /* Start with a lighter purple and transition to dark blue */
+    border-radius: 5px;
+    height: 10px;
+}
+
+/* Thumb styling */
+#ratingRange::-webkit-slider-thumb {
+    background: #5a5c9a;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-top: -5px; /* Half of the extra height to align with the track */
+}
+
+/* Make the slider thumb larger and more visible */
+#ratingRange {
+    -webkit-appearance: none; /* Override default appearance */
+    width: 100%; /* Ensure full width */
+    height: 10px; /* Specific height for the slider track */
+    background: transparent; /* Transparent background */
+    outline: none; /* Remove default focus outline */
+}
+
+.slider-marks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; /* Adjust based on actual layout */
+}
+
+.slider-marks span {
+    color: #e4e4e7;
+    font-size: 16px;
+}
+
+
+/* Rating Range*/
+.rating-range-section {
+    display: block; /* Aligns the label and value in a row */
+    align-items: center; /* Centers the items vertically */
+    padding: 10px 0; /* Adds some vertical padding for spacing */
+}
+
+.rating-range-label {
+    margin-right: 10px; /* Adds some space between the label and the value */
+    align-items: center;
+    font-size: 14px; /* Adjust font size as needed */
+    color: #a7a9be; /* Soft purple color for the label */
+}
+
+.ratingRange {
+    font-size: 14px; /* Matching the label font size */
+    color: #f4f4f4; /* Light color for the value for contrast */
+}
+
